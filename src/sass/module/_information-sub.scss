@@ -1,0 +1,7 @@
+@use "global" as *;
+.information-sub__tab{
+  margin-bottom: rem(16);
+  @include mq(md){
+    margin-bottom: rem(24);
+  }
+}

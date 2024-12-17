@@ -1,0 +1,32 @@
+@use "global" as *;
+
+.category {
+  display: flex;
+  flex-wrap: wrap;
+  gap: rem(16) rem(21);
+  justify-content: flex-start;
+  @include mq(md){
+    justify-content: flex-start;
+    gap: rem(21) rem(32);
+  }
+}
+
+.category__btn {
+  font-size: rem(14);
+  line-height: 1;
+  padding: rem(9);
+  text-transform: uppercase;
+  text-align: center;
+  color: $blue;
+  background-color: $white;
+  border: 1px solid $blue;
+  min-width: rem(162);
+  white-space: nowrap;
+  transition: 0.3s;
+}
+
+.category__btn:hover,
+.category__btn.active{
+  background-color: $blue;
+  color: $white;
+}

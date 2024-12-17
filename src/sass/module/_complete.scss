@@ -1,0 +1,16 @@
+@use "global" as *;
+
+.complete {
+  text-align: center;
+  position: relative;
+}
+
+.complete__text{
+  color: $dark-green;
+  line-height: 1.45;
+}
+
+.complete__text--top{
+  margin-bottom: rem(40);
+  line-height: 1.125;
+}

@@ -1,0 +1,39 @@
+@use "global" as *;
+
+.voice {
+  @include mq(md){
+    position: relative;
+  }
+}
+
+.voice__title {
+  margin-bottom: rem(42);
+  @include mq(md){
+    margin-bottom: rem(30);
+  }
+}
+
+.voice__card-wrapper {
+  margin-bottom: rem(40);
+  @include mq(md){
+    margin-bottom: rem(80);
+  }
+}
+
+.voice__btn{
+  text-align: center;
+}
+
+.voice::after {
+  @include mq(md){
+    content: "";
+    background: url(../images/common/seahorse.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: rem(71);
+    height: rem(162);
+    position: absolute;
+    right: calc(50% - min(48vw, rem(540)));
+    bottom: rem(-64);
+  }
+}
