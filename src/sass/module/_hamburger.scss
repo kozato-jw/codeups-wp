@@ -1,0 +1,49 @@
+@use "global" as *;
+
+.hamburger {
+  position: relative;
+  width: rem(56);
+  height: rem(24);
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.hamburger__bar {
+  position: absolute;
+  right: 0;
+  width: rem(34);
+  height: 1px;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.hamburger, .hamburger__bar {
+  display: inline-block;
+  transition: all .6s
+}
+
+.hamburger__bar:nth-of-type(1) {
+  top: 0;
+}
+
+.hamburger__bar:nth-of-type(2) {
+  top: rem(11.5);
+}
+
+.hamburger__bar:nth-of-type(3) {
+  bottom: 0;
+}
+
+#hamburger.js-active .hamburger__bar:nth-of-type(1) {
+  -webkit-transform: translateY(rem(12)) rotate(37deg);
+  transform: translateY(rem(12)) rotate(38deg) scale(1.2);
+}
+
+#hamburger.js-active .hamburger__bar:nth-of-type(2) {
+  opacity: 0;
+}
+
+#hamburger.js-active .hamburger__bar:nth-of-type(3) {
+  -webkit-transform: translateY(rem(-12)) rotate(-37deg);
+  transform: translateY(rem(-12)) rotate(-38deg) scale(1.2);
+}

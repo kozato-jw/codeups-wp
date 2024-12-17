@@ -1,0 +1,92 @@
+@use "global" as *;
+
+.gnav {
+  justify-items: start;
+  display: grid;
+  @include mq(md){
+    display: flex;
+    gap: 11.1%;
+  }
+}
+
+.gnav__items {
+  color: $white;
+  font-size: rem(16);
+  line-height: 1.125;
+}
+
+.gnav__items--sitemap {
+  color: $dark-green;
+}
+
+.gnav__item {
+  margin-bottom: rem(24);
+}
+
+.gnav__item a {
+  transition: 0.3s;
+}
+
+.gnav__item a:hover {
+  opacity: 0.6;
+}
+
+.gnav__item:last-of-type {
+  margin-bottom: 0;
+}
+
+.gnav__item--main{
+  font-weight: $bold;
+  position: relative;
+  padding-left: rem(22);
+}
+
+.gnav__item--main::before{
+  content: url(../images/common/starfish.svg);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.gnav__item--main-sitemap{
+  font-weight: $bold;
+  position: relative;
+  padding-left: rem(22);
+}
+
+.gnav__item--main-sitemap::before{
+  content: url(../images/common/starfish-black.svg);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.gnav__item--sub {
+  margin-left: rem(22);
+}
+
+.gnav__item--mb40 {
+  margin-bottom: rem(40);
+}
+
+.gnav__icon {
+  width: rem(18);
+}
+
+.gnav__items:nth-of-type(3) {
+  @include mq(md){
+    order: 1;
+  }
+}
+
+.gnav__items:nth-of-type(2) {
+  @include mq(md){
+    order: 2;
+  }
+}
+
+.gnav__items:nth-of-type(4) {
+  @include mq(md){
+    order: 3;
+  }
+}

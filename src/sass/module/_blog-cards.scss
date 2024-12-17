@@ -1,0 +1,32 @@
+@use "global" as *;
+
+.blog-cards {
+  @include mq(md){
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: rem(40.5);
+    grid-row-gap: rem(80);
+  }
+}
+
+.blog-cards--sub{
+  margin-left: rem(6);
+  margin-right: rem(6);
+  @include mq(md){
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: rem(40);
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.blog-cards__item {
+  margin: 0 auto rem(40);
+  @include mq(md){
+    margin: 0;
+  }
+}
+
+.blog-cards__item:last-of-type {
+  margin-bottom: 0;
+}

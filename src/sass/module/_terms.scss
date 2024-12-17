@@ -1,0 +1,41 @@
+@use "global" as *;
+.terms__inner{
+  max-width: rem(800);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.terms h2{
+  color: $dark-green;
+  margin-bottom: rem(40);
+  @include mq(md){
+    font-size: rem(32);
+    margin-bottom: rem(38);
+  }
+}
+
+.terms h3{
+  color: $dark-green;
+  line-height: 2;
+  margin-bottom: rem(33);
+  font-size: rem(16);
+  font-weight: $regular;
+}
+
+.terms ol{
+  margin-bottom: rem(32);
+}
+
+.terms li{
+  list-style-type: decimal;
+  list-style-position: inside;
+  color: $dark-green;
+  line-height: 2;
+  text-indent: -1em;
+  padding-left: 1.4em;
+}
+
+.terms p{
+  color: $dark-green;
+  line-height: 2;
+}

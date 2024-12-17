@@ -1,0 +1,22 @@
+@use "global" as *;
+.campaign-sub__category {
+  max-width: rem(400);
+  width: 100%;
+  margin: 0 auto rem(40);
+  @include mq(md){
+    max-width: 100%;
+  }
+}
+
+.campaign-sub__cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: rem(40);
+  margin: 0 rem(33) rem(80);
+  @include mq(md){
+    grid-template-columns: repeat(2, 1fr);
+    grid-row-gap: rem(80);
+    grid-column-gap: rem(40);
+    margin: 0 0 rem(80);
+  }
+}

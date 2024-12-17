@@ -1,0 +1,44 @@
+@use "global" as *;
+.privacy__inner{
+  max-width: rem(800);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.privacy h2{
+  color: $dark-green;
+  margin-bottom: rem(40);
+  @include mq(md){
+    font-size: rem(32);
+    margin-bottom: rem(38);
+  }
+}
+
+.privacy h3{
+  color: $dark-green;
+  line-height: 2;
+  margin-bottom: rem(33);
+  font-size: rem(16);
+  font-weight: $regular;
+  @include mq(md) {
+  margin-bottom: rem(32);
+  }
+}
+
+.privacy ol{
+  margin-bottom: rem(32);
+}
+
+.privacy li{
+  list-style-type: decimal;
+  list-style-position: inside;
+  color: $dark-green;
+  line-height: 2;
+  text-indent: -1em;
+  padding-left: 1.4em;
+}
+
+.privacy p{
+  color: $dark-green;
+  line-height: 2;
+}
