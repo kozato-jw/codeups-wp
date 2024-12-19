@@ -15,7 +15,7 @@
 
       <!-- カスタムタクソノミー -->
       <div class="campaign-sub__category category">
-        <a href="<?php echo esc_url(get_post_type_archive_link('campaign')); ?>" class="category__btn <?php if (!is_tax('campaign_category')) echo 'active'; ?>">all</a>
+        <a href="<?php echo get_post_type_archive_link('campaign'); ?>" class="category__btn <?php if (!is_tax()) echo 'active'; ?>">all</a>
         <?php
         $terms = get_terms(array(
           'taxonomy' => 'campaign_category',
