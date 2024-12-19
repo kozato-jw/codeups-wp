@@ -1,3 +1,4 @@
+var $ = jQuery.noConflict();
 "use strict";
 
 jQuery(function ($) {
@@ -410,65 +411,85 @@ document.addEventListener('DOMContentLoaded', function () {
   // }
 });
 
-/* 指定のカテゴリータブを開いた状態でリンクを開く（下層キャンペーンと下層インフォメーション） */
+
+
+
+
+// カテゴリーボタン　タクソノミーによるタブ切り替えの設定
 $(document).ready(function () {
-  $(window).on('load', function () {
-    var hash = window.location.hash;
-    if (hash && hash.startsWith('#category-') && $("[data-tab=\"".concat(hash.replace('#category-', ''), "\"]")).length) {
-      activateTab(hash.replace('#category-', ''));
-    } else {
-      activateTab('tab-1'); // デフォルトで「all」（tab-1）を表示
-    }
-  });
-
-  // カテゴリーボタンがクリックされたときのイベント
   $('.category__btn').on('click', function (e) {
+    var href = $(this).attr('href');
+    
+    if (!href.startsWith('#')) {
+      return;
+    }
+    
     e.preventDefault();
-    var tabId = $(this).data('tab');
-
-    // 既にアクティブなタブが押された場合
-    if ($(this).hasClass('active')) {
-      window.location.hash = '';
-      window.location.hash = 'category-' + tabId;
-      scrollToTop();
-    } else {
-      activateTab(tabId);
-      window.location.hash = 'category-' + tabId;
-      scrollToTop();
-    }
+    var tabId = $(this).data('tab').replace('tab-', '');
+    activateTab(tabId);
   });
 
-  // ハッシュが変更されたとき（外部リンクなどから遷移）
-  $(window).on('hashchange', function () {
-    var hash = window.location.hash.replace('#category-', '');
-    if ($("[data-tab=\"".concat(hash, "\"]")).length) {
-      activateTab(hash);
-      scrollToTop();
-    }
-  });
-
-  // タブの表示・非表示とactiveクラスの管理
-  function activateTab(tabId) {
-    $('.category__btn').removeClass('active');
-    $("[data-tab=\"".concat(tabId, "\"]")).addClass('active');
-    $('.campaign-card, .voice-card').css('display', 'none');
-    // "all"タブが選択された場合はすべて表示
-    if (tabId === 'tab-1') {
-      $('.campaign-card, .voice-card').css('display', 'block');
-    } else {
-      // 選択されたタブに対応するカードのみ表示
-      $(".js-".concat(tabId)).css('display', 'block');
-    }
-  }
-
-  // ページトップにスムーススクロールする関数
-  function scrollToTop() {
-    var targetOffset = $('.category').offset().top - 200;
-    $('html, body').animate({
-      scrollTop: targetOffset
-    }, 300);
-  }
 });
+
+
+
+
+// // カテゴリーボタン　タクソノミーによるタブ切り替えの設定
+// $(document).ready(function () {
+//   // ページ読み込み時の動作
+//   $(window).on('load', function () {
+//     var hash = window.location.hash;
+//     if (hash && hash.startsWith('#category-tab-')) {
+//       var tabId = hash.replace('#category-tab-', ''); // ハッシュからタブIDを取得
+//       activateTab(tabId);
+//     } else {
+//       activateTab('all'); // デフォルトで全ての投稿を表示
+//     }
+//   });
+
+//   // タブボタンがクリックされたときの処理
+//   $('.category__btn').on('click', function (e) {
+//     e.preventDefault(); // デフォルトのリンク動作を防止
+//     var tabId = $(this).data('tab').replace('tab-', ''); // `tab-` を除去してIDを取得
+//     activateTab(tabId);
+//     window.location.hash = 'category-tab-' + tabId; // URLのハッシュを更新
+//   });
+
+//   // URLのハッシュが変更されたときの処理
+//   $(window).on('hashchange', function () {
+//     var hash = window.location.hash.replace('#category-tab-', '');
+//     activateTab(hash);
+//   });
+
+//   // タブを切り替える関数
+//   function activateTab(tabId) {
+//     // 全てのボタンから active クラスを削除
+//     $('.category__btn').removeClass('active');
+//     // 現在のタブを active にする
+//     $("[data-tab='tab-" + tabId + "']").addClass('active');
+
+//     // 全てのカードを非表示
+//     $('.campaign-card').css('display', 'none');
+
+//     // "all" が選ばれた場合は全てのカードを表示
+//     if (tabId === 'all') {
+//       $('.campaign-card').css('display', 'block');
+//     } else {
+//       // 選択されたタブIDに一致するカードだけ表示
+//       $(".js-tab-" + tabId).css('display', 'block');
+//     }
+//   }
+
+//   // ページトップにスムーススクロールする関数
+//   function scrollToTop() {
+//     var targetOffset = $('.category').offset().top - 200;
+//     $('html, body').animate({
+//       scrollTop: targetOffset
+//     }, 300);
+//   }
+// });
+
+
 
 /* プライスページへのリンクのスクロール位置指定 */
 $(document).ready(function () {
@@ -490,3 +511,7 @@ $(document).ready(function () {
   scrollToHash();
   $(window).on('hashchange', scrollToHash);
 });
+
+
+
+
