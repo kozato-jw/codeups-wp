@@ -15,7 +15,7 @@
 
       <!-- カスタムタクソノミー -->
       <div class="voice-sub__category category">
-        <a href="<?php echo esc_url(get_post_type_archive_link('voice')); ?>" class="category__btn <?php if (!is_tax('voice_category')) echo 'active'; ?>">all</a>
+        <a href="<?php echo get_post_type_archive_link('voice'); ?>" class="category__btn <?php if (!is_tax()) echo 'active'; ?>">all</a>
         <?php
         $terms = get_terms(array(
           'taxonomy' => 'voice_category',

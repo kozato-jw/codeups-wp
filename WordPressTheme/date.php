@@ -35,8 +35,10 @@
                   <p class="blog-card__text"><?php the_excerpt(); ?></p>
                 </a>
               </article>
-          <?php endwhile;
-          endif; ?>
+            <?php endwhile;
+          else : ?>
+            <p>該当する記事が見つかりませんでした。</p>
+          <?php endif; ?>
           <!-- ループ終了 -->
         </div>
         <?php wp_pagenavi(); ?>

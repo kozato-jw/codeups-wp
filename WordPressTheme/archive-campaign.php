@@ -63,22 +63,18 @@
                 </p>
                 <h2 class="campaign-card__title campaign-card__title--sub"><?php the_title(); ?></h2>
                 <p class="campaign-card__text campaign-card__text--sub">全部コミコミ(お一人様)</p>
-
                 <?php
                 $regular_price = get_field('regular-price');
                 $special_price = get_field('special-price');
                 $campaign_details = get_field('campaign-details');
                 $period = get_field('period');
                 ?>
-                <?php if ($regular_price || $special_price || $campaign_details || $period): ?>
                   <p class="campaign-card__price campaign-card__price--sub">
                     <span class="campaign-card__price-disabled">&yen;<?php echo esc_html($regular_price); ?></span>
                     <span class="campaign-card__price-current">&yen;<?php echo esc_html($special_price); ?></span>
                   </p>
                   <p class="campaign-card__description u-desktop"><?php echo esc_html($campaign_details); ?></p>
                   <p class="campaign-card__description-date u-desktop"><?php echo esc_html($period); ?></p>
-                <?php endif; ?>
-
                 <p class="campaign-card__description-cta u-desktop">ご予約・お問い合わせはコチラ</p>
                 <div class="campaign-card__btn u-desktop">
                   <a class="btn" href="<?php echo $contact; ?>">
@@ -90,13 +86,10 @@
         <?php endwhile;
         endif; ?>
         <!-- メインループ終了 -->
-
       </div>
       <?php wp_pagenavi(); ?>
     </div>
   </section>
-
   <?php get_template_part('parts/common-contact'); ?>
-
 </main>
 <?php get_footer(); ?>
