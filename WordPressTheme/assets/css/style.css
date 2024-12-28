@@ -1472,6 +1472,31 @@ textarea {
 
 /* エラー時のスタイル */
 
+.form__check .wpcf7-list-item {
+	display: block;
+}
+
+.form__consent .wpcf7-form-control-wrap,
+.form__consent .wpcf7-form-control,
+.form__consent .wpcf7-acceptance,
+.form__consent .wpcf7-list-item {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+.wpcf7-spinner {
+	display: none;
+}
+
+.form__btn input {
+	color: #ffffff;
+	transition: 0.6s;
+}
+
+.form__btn .btn--disabled:hover input {
+	color: #408F95;
+}
+
 .gallery__title {
 	margin-bottom: 2.3125rem;
 }

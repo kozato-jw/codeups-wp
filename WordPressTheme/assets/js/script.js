@@ -420,6 +420,7 @@ $(document).ready(function () {
   $('.category__btn').on('click', function (e) {
     var href = $(this).attr('href');
     
+
     if (!href.startsWith('#')) {
       return;
     }
