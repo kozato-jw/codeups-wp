@@ -1,4 +1,8 @@
-<?php get_header(); ?>
+<?php
+/*
+Template Name: お問い合わせ(送信完了)
+*/
+get_header(); ?>
 <main>
   <section class="mv-sub contact-mv">
     <h1 class="mv-sub__title">contact</h1>

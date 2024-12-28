@@ -13,62 +13,26 @@
   <section class="faq-sub faq-sub-content icon-fish">
     <div class="inner-sub">
       <div class="faq-sub__items faq-boxes">
+        <!-- 繰り返しフィールド開始 -->
+        <?php
+        $faq = scf::get('faq');
+
+        if (!empty($faq)) :
+          foreach ($faq as $index => $faq_item):
+            $faq_title = $faq_item['faq_title'];
+            $faq_answer = $faq_item['faq_answer'];
+        ?>
         <div class="faq-boxes__item faq-box">
-          <h2 class="faq-box__function">ここに質問が入ります</h2>
+          <h2 class="faq-box__function"><?php echo esc_html($faq_title); ?></h2>
           <div class="faq-box__answer">
-            <p class="faq-box__answer-text">
-              ここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入ります質問の答えが入ります質問の答えが入ります質問の答えが入ります質問の答えが入ります質問の答えが入ります質問の答えが入ります質問の答えが入ります質問の答えが入ります質問の答えが入ります質問の答えが入ります質問の答えが入ります質問の答えが入ります
-            </p>
+            <p class="faq-box__answer-text"><?php echo esc_html($faq_answer); ?></p>
           </div>
         </div>
-        <div class="faq-boxes__item faq-box">
-          <h2 class="faq-box__function">ここに質問が入りますここに質問が入りますここに質問が入りますここに質問が入りますここに質問が入ります</h2>
-          <div class="faq-box__answer">
-            <p class="faq-box__answer-text">
-              ここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入ります
-            </p>
-          </div>
-        </div>
-        <div class="faq-boxes__item faq-box">
-          <h2 class="faq-box__function">ここに質問が入ります</h2>
-          <div class="faq-box__answer">
-            <p class="faq-box__answer-text">
-              ここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入ります
-            </p>
-          </div>
-        </div>
-        <div class="faq-boxes__item faq-box">
-          <h2 class="faq-box__function">ここに質問が入ります</h2>
-          <div class="faq-box__answer">
-            <p class="faq-box__answer-text">
-              ここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入ります
-            </p>
-          </div>
-        </div>
-        <div class="faq-boxes__item faq-box">
-          <h2 class="faq-box__function">ここに質問が入ります</h2>
-          <div class="faq-box__answer">
-            <p class="faq-box__answer-text">
-              ここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入ります
-            </p>
-          </div>
-        </div>
-        <div class="faq-boxes__item faq-box">
-          <h2 class="faq-box__function">ここに質問が入ります</h2>
-          <div class="faq-box__answer">
-            <p class="faq-box__answer-text">
-              ここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入ります
-            </p>
-          </div>
-        </div>
-        <div class="faq-boxes__item faq-box">
-          <h2 class="faq-box__function">ここに質問が入ります</h2>
-          <div class="faq-box__answer">
-            <p class="faq-box__answer-text">
-              ここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入りますここに質問の答えが入ります
-            </p>
-          </div>
-        </div>
+        <?php
+          endforeach;
+          endif;
+        ?>
+        <!-- 繰り返しフィールド終了 -->
       </div>
     </div>
   </section>

@@ -31,7 +31,7 @@
       </div>
     </div>
   </section>
-  
+
   <section class="about__gallery gallery about-gallery">
     <div class="inner">
       <div class="gallery__title section-title">
@@ -39,29 +39,32 @@
         <h2 class="section-title__ja">フォト</h2>
       </div>
       <div class="gallery__images">
-        <!-- 繰り返しフィールド -->
+        <!-- 繰り返しフィールド開始 -->
         <?php
         $gallery = scf::get('gallery');
-        ?>
-        <?php if ($gallery): ?>
-          <?php foreach ($gallery as $index => $galleryitem): ?>
-            <?php
-            $galleryimage_id = $galleryitem['gallery-image'];
-            $galleryimage_url = wp_get_attachment_url($galleryimage_id);
-            ?>
-            <?php if ($galleryimage_url):
-            ?>
-              <div class="gallery__image">
-                <img src="<?php echo esc_url($galleryimage_url); ?>" alt="ギャラリーの画像">
-              </div>
-            <?php endif; ?>
-          <?php endforeach; ?>
-        <?php endif; ?>
 
+        if (!empty($gallery)) :
+          foreach ($gallery as $index => $item) :
+            $image_id = $item['gallery-image'];
+            $image_url = wp_get_attachment_url($image_id);
+
+          if ($image_url) :
+        ?>
+        <div class="gallery__image">
+          <img src="<?php echo esc_url($image_url); ?>" alt="ギャラリーの画像">
+        </div>
+        <?php
+          endif;
+          endforeach;
+          endif;
+        ?>
+        <!-- 繰り返しフィールド終了 -->
         <!-- モーダル用のHTML -->
         <div id="modal" class="modal">
           <img id="modalimage" class="modal__content" alt="">
         </div>
+      </div>
+    </div>
   </section>
   <?php get_template_part('parts/common-contact'); ?>
 </main>

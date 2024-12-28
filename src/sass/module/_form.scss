@@ -331,3 +331,35 @@ textarea {
 //   padding-left: 1em;
 // 	margin-bottom: rem(40);
 // }
+
+
+// .wpcf7-form-control-wrap,
+// .wpcf7-form-control,
+// .wpcf7-list-item{
+//   display: none;
+// }
+
+.form__check .wpcf7-list-item {
+  display: block;
+}
+
+.form__consent .wpcf7-form-control-wrap,
+.form__consent .wpcf7-form-control,
+.form__consent .wpcf7-acceptance,
+.form__consent .wpcf7-list-item{
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.wpcf7-spinner{
+  display: none;
+}
+
+.form__btn input{
+  color: #ffffff;
+  transition: 0.6s;
+}
+
+.form__btn .btn--disabled:hover input{
+  color: $blue;
+}
