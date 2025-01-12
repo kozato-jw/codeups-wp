@@ -1470,7 +1470,43 @@ textarea {
 	text-align: center;
 }
 
-/* エラー時のスタイル */
+/* 必須項目未入力時のスタイル */
+
+.form__check .wpcf7-not-valid .wpcf7-list-item-label::before,
+.form__content input.wpcf7-not-valid,
+.form__content textarea.wpcf7-not-valid {
+	background-color: rgba(201, 72, 0, 0.2);
+	border: 1px solid #C94800;
+	color: #DDF0F1;
+	color: #0D2936;
+}
+
+.form__content input.wpcf7-not-valid::-moz-placeholder {
+	color: #ffffff;
+}
+
+.form__content input.wpcf7-not-valid::placeholder {
+	color: #ffffff;
+}
+
+.form__error-text-wrapper {
+	display: none;
+	text-align: center;
+}
+
+.form__error-text {
+	color: #C94800;
+	display: inline-block;
+	font-size: 0.875rem;
+	margin-bottom: 2.5rem;
+	padding-left: 1em;
+	text-align: left;
+	text-indent: -1em;
+}
+
+.wpcf7 form .wpcf7-response-output {
+	display: none;
+}
 
 .form__check .wpcf7-list-item {
 	display: block;
@@ -2260,6 +2296,10 @@ body.js-modal-open {
 	margin-bottom: 0;
 }
 
+.price__list-item--top br {
+	display: none;
+}
+
 .price__btn {
 	text-align: center;
 }
@@ -2283,7 +2323,7 @@ body.js-modal-open {
 	margin-bottom: 2.0625rem;
 }
 
-.privacy ol {
+.privacy ul {
 	margin-bottom: 2rem;
 }
 
@@ -2509,7 +2549,7 @@ body.js-modal-open {
 	margin-bottom: 2.0625rem;
 }
 
-.terms ol {
+.terms ul {
 	margin-bottom: 2rem;
 }
 

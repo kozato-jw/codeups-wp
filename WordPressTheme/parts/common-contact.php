@@ -1,3 +1,6 @@
+<?php
+global $contact;
+?>
 <!-- 共通コンタクトエリア -->
 <section class="common-contact top-contact">
   <div class="inner">

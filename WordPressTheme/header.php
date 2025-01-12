@@ -6,6 +6,7 @@ global $home, $campaign, $aboutus, $information, $blog, $voice, $price, $faq, $c
 ?>
 
 <head>
+  <!-- <meta name="google-site-verification" content="Bhlv828XcxbwxGnRm7P27DY4PQFqQTU3sI8y0J-lwQc" /> -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <meta name="format-detection" content="telephone=no" />
@@ -94,18 +95,29 @@ global $home, $campaign, $aboutus, $information, $blog, $voice, $price, $faq, $c
     <div class="header__nav-wrapper js-header__nav-wrapper u-mobile">
       <nav class="header__nav gnav inner">
         <ul class="gnav__items">
+          <!-- 以下 キャンペーンのカスタムタクソノミーを反映 -->
+          <!-- 「キャンペーン」は「ALL」タブへ -->
           <li class="gnav__item gnav__item--main">
-            <a href="<?php echo esc_url(home_url('campaign#category-tab-1')) ?>">キャンペーン</a>
+            <a href="<?php echo esc_url(get_post_type_archive_link('campaign')); ?>">キャンペーン</a>
           </li>
-          <li class="gnav__item gnav__item--sub">
-            <a href="<?php echo esc_url(home_url('campaign#category-tab-2')) ?>">ライセンス取得</a>
-          </li>
-          <li class="gnav__item gnav__item--sub">
-            <a href="<?php echo esc_url(home_url('campaign#category-tab-3')) ?>">貸切体験ダイビング</a>
-          </li>
-          <li class="gnav__item gnav__item--sub gnav__item--mb40">
-            <a href="<?php echo esc_url(home_url('campaign#category-tab-4')) ?>">ファンダイビング</a>
-          </li>
+
+          <?php
+          // カスタムタクソノミーを取得
+          $terms = get_terms(array(
+            'taxonomy' => 'campaign_category',
+            'hide_empty' => true,
+          ));
+
+          foreach ($terms as $term) :
+          ?>
+            <li class="gnav__item gnav__item--sub">
+              <a href="<?php echo esc_url(get_term_link($term)); ?>">
+                <?php echo esc_html($term->name); ?>
+              </a>
+            </li>
+          <?php endforeach; ?>
+          <!-- 以上 キャンペーンのカスタムタクソノミーを反映 -->
+
           <li class="gnav__item gnav__item--main">
             <a href="<?php echo $aboutus; ?>">私たちについて</a>
           </li>
@@ -114,18 +126,38 @@ global $home, $campaign, $aboutus, $information, $blog, $voice, $price, $faq, $c
           <li class="gnav__item gnav__item--main gnav__item--mb40">
             <a href="<?php echo $voice; ?>">お客様の声 </a>
           </li>
+          
+          <!-- 以下 プライスのカスタムタクソノミーを反映 -->
+          <?php
+          $price_page_id = 17;
+          $price_page_url = get_permalink($price_page_id);
+          ?>
+          <!-- 料金一覧（最上部へのリンク） -->
           <li class="gnav__item gnav__item--main">
-            <a href="<?php echo $price; ?>">料金一覧 </a>
+            <a href="<?php echo esc_url($price_page_url); ?>">料金一覧</a>
           </li>
-          <li class="gnav__item gnav__item--sub">
-            <a href="<?php echo esc_url(home_url('price#licensediving')) ?>">ライセンス講習</a>
-          </li>
-          <li class="gnav__item gnav__item--sub">
-            <a href="<?php echo esc_url(home_url('price#trialdiving')) ?>">体験ダイビング</a>
-          </li>
-          <li class="gnav__item gnav__item--sub gnav__item--mb40">
-            <a href="<?php echo esc_url(home_url('price#fundiving')) ?>">ファンダイビング</a>
-          </li>
+
+          <?php
+          // カスタムタクソノミーを取得
+          $terms = get_terms(array(
+            'taxonomy' => 'price_category',
+            'hide_empty' => false,
+          ));
+
+          if (!empty($terms) && !is_wp_error($terms)) :
+            foreach ($terms as $term) :
+          ?>
+              <li class="gnav__item gnav__item--sub">
+                <a href="<?php echo esc_url($price_page_url . '#' . $term->slug); ?>">
+                  <?php echo esc_html($term->name); ?>
+                </a>
+              </li>
+          <?php
+            endforeach;
+          endif;
+          ?>
+          <!-- 以上 プライスのカスタムタクソノミーを反映 -->
+
         </ul>
         <ul class="gnav__items">
           <li class="gnav__item gnav__item--main">

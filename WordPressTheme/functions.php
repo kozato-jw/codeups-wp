@@ -67,6 +67,20 @@ add_action('wp_enqueue_scripts', 'my_theme_enqueue_styles_and_scripts');
 
 
 
+//jQuery Migrateを無効化
+function disable_jquery_migrate($scripts)
+{
+  if (!is_admin() && isset($scripts->registered['jquery'])) {
+    $scripts->registered['jquery']->deps = array_diff(
+      $scripts->registered['jquery']->deps,
+      ['jquery-migrate']
+    );
+  }
+}
+add_action('wp_default_scripts', 'disable_jquery_migrate');
+
+
+
 // （ナビメニュー）グローバル変数の定義
 global $home, $campaign, $aboutus, $information, $blog, $voice, $price, $faq, $contact, $privacy, $termsofservice, $sitemap;
 
@@ -135,6 +149,46 @@ add_action('pre_get_posts', 'change_voice_posts_per_page');
 
 
 
+//サイドバーのブログ人気記事の設定（閲覧数をカウントして保存）
+function set_post_views($post_id)  // 閲覧数を保存
+{
+  $count_key = 'post_views_count';
+  $count = get_post_meta($post_id, $count_key, true);
+  if ($count == '') {
+    $count = 0;
+    delete_post_meta($post_id, $count_key);
+    add_post_meta($post_id, $count_key, '0');
+  } else {
+    $count++;
+    update_post_meta($post_id, $count_key, $count);
+  }
+}
+
+function track_post_views($post_id)  // 閲覧数をカウント（シングルページの閲覧時に実行）
+{
+  if (!is_single()) return;
+  if (empty($post_id)) {
+    global $post;
+    $post_id = $post->ID;
+  }
+  set_post_views($post_id);
+}
+add_action('wp_head', 'track_post_views');
+
+function get_post_views($post_id)  // 閲覧数を取得する関数
+{
+  $count_key = 'post_views_count';
+  $count = get_post_meta($post_id, $count_key, true);
+  if ($count == '') {
+    delete_post_meta($post_id, $count_key);
+    add_post_meta($post_id, $count_key, '0');
+    return "0";
+  }
+  return $count;
+}
+
+
+
 //通常投稿の名称変更
 function Change_menulabel()
 {
@@ -148,7 +202,7 @@ function Change_menulabel()
 function Change_objectlabel()
 {
   global $wp_post_types;
-  $name = 'お知らせ';
+  $name = 'ブログ';
   $labels = &$wp_post_types['post']->labels;
   $labels->name = $name;
   $labels->singular_name = $name;
@@ -182,7 +236,7 @@ function add_custom_taxonomy_to_cf7($tag, $unused)
 {
   // フィールドタイプが 'select*' または 'select' の場合のみ処理
   if (in_array($tag['name'], ['custom-taxonomy-select'], true)) {
-    $taxonomy = 'campaign_category'; 
+    $taxonomy = 'campaign_category';
     // カスタムタクソノミーからタームを取得
     $terms = get_terms([
       'taxonomy' => $taxonomy,
@@ -210,14 +264,87 @@ function add_origin_thanks_page()
 {
   $thanks = esc_url(home_url('/contact/thanks/'));
   echo <<< EOC
-     <script>
-       var thanksPage = {
-        326: '{$thanks}',
-         
-       };
-     document.addEventListener( 'wpcf7mailsent', function( event ) {
-       location = thanksPage[event.detail.contactFormId];
-     }, false );
-     </script>
-   EOC;
+    <script>
+      var thanksPage = {
+      326: '{$thanks}',
+        
+      };
+    document.addEventListener( 'wpcf7mailsent', function( event ) {
+      location = thanksPage[event.detail.contactFormId];
+    }, false );
+    </script>
+  EOC;
+}
+
+
+
+// Contact Form 7のデフォルトメッセージを削除
+add_action('wp_footer', 'custom_disable_default_cf7_messages');
+function custom_disable_default_cf7_messages()
+{
+?>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('wpcf7invalid', function() {
+        var responseOutput = document.querySelector('.wpcf7-response-output.wpcf7-validation-errors');
+        if (responseOutput) {
+          responseOutput.style.display = 'none';
+        }
+      });
+    });
+  </script>
+<?php
+}
+
+// Contact Form 7に独自エラーメッセージ表示
+add_action('wp_footer', 'custom_error_message_script');
+function custom_error_message_script()
+{
+?>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('.wpcf7-form');
+      const errorDiv = document.getElementById('custom-error-message');
+
+      // MutationObserverを使ってwpcf7-not-validクラスが追加されるのを監視
+      if (form && errorDiv) {
+        const observer = new MutationObserver(function(mutations) {
+          let errorExists = false;
+
+          mutations.forEach(function(mutation) {
+            // wpcf7-not-validクラスが追加された場合にエラーメッセージを表示
+            if (mutation.type === 'attributes' && mutation.target.classList.contains('wpcf7-not-valid')) {
+              errorExists = true;
+            }
+          });
+
+          // もしwpcf7-not-validクラスが1つでもあればエラーメッセージを表示
+          if (errorExists) {
+            errorDiv.style.display = 'block';
+          } else {
+            errorDiv.style.display = 'none'; // 全ての必須項目が埋まってエラーがなくなったら非表示
+          }
+        });
+
+        // 監視対象の要素と属性を設定
+        const config = {
+          attributes: true,
+          subtree: true
+        };
+        const inputs = form.querySelectorAll('input, textarea, select'); // フォーム内の各入力要素を監視
+
+        inputs.forEach(function(input) {
+          observer.observe(input, config); // 各入力要素の変更を監視
+        });
+
+        // フォームの送信時にエラーメッセージを非表示にする処理（必要に応じて）
+        form.addEventListener('submit', function() {
+          if (errorDiv) {
+            errorDiv.style.display = 'none';
+          }
+        });
+      }
+    });
+  </script>
+<?php
 }
