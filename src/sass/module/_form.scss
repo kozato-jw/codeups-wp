@@ -299,45 +299,39 @@ textarea {
 	text-align: center;
 }
 
-/* エラー時のスタイル */
-// .form__item--error textarea,
-// .form__item--error input,
-// label.form__item--error{
-// 	color: #DDF0F1;
-// 	border: 1px solid #C94800;
-// 	background-color: #C9480033;
-// 	color: $dark-green
-// }
 
-// .form__item--error input::placeholder{
-// 	color: $white;
-// }
+/* 必須項目未入力時のスタイル */
+.form__check .wpcf7-not-valid .wpcf7-list-item-label::before,
+.form__content input.wpcf7-not-valid,
+.form__content textarea.wpcf7-not-valid{
+	color: #DDF0F1;
+	border: 1px solid #C94800;
+	background-color: #C9480033;
+	color: $dark-green
+}
 
-// .form__error-text-wrapper{
-// 	text-align: center;
-// 	display: none;
-// }
+.form__content input.wpcf7-not-valid::placeholder{
+	color: $white;
+}
 
-// .form--error .form__error-text-wrapper{
-// 	display: block;
-// }
+.form__error-text-wrapper {
+  text-align: center;
+  display: none;
+}
 
-// .form__error-text{
-// 	color: #C94800;
-// 	font-size: rem(14);
-// 	text-align: left;
-// 	display: inline-block;
-// 	text-indent: -1em;
-//   padding-left: 1em;
-// 	margin-bottom: rem(40);
-// }
+.form__error-text {
+  color: #C94800;
+  font-size: rem(14);
+  text-align: left;
+  display: inline-block;
+  text-indent: -1em;
+  padding-left: 1em;
+  margin-bottom: rem(40);
+}
 
-
-// .wpcf7-form-control-wrap,
-// .wpcf7-form-control,
-// .wpcf7-list-item{
-//   display: none;
-// }
+.wpcf7 form .wpcf7-response-output{
+  display: none;
+}
 
 .form__check .wpcf7-list-item {
   display: block;

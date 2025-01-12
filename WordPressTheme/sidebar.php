@@ -8,11 +8,14 @@ global  $campaign, $blog, $voice;
     <section class="sidebar__content">
       <h2 class="sidebar__title sidebar__title--article">人気記事</h2>
       <div class="sidebar__blog-cards">
-        <!-- サブループ開始／ブログ最新3件 -->
+        <!-- サブループ開始／ブログ人気3件 -->
         <?php
         $args = array(
           'post_type' => 'post',
           'posts_per_page' => 3,
+          'meta_key' => 'post_views_count',
+          'orderby' => 'meta_value_num',
+          'order' => 'DESC',
         );
         $the_query = new WP_Query($args);
         if ($the_query->have_posts()):
@@ -44,6 +47,7 @@ global  $campaign, $blog, $voice;
       </div>
     </section>
     <!-- /人気記事 -->
+
 
     <!-- 口コミ -->
     <section class="sidebar__content">

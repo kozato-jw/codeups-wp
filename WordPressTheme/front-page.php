@@ -320,48 +320,50 @@
         </div>
         <!-- 下層プライスページの内容を正としてSCF出力 -->
         <div class="price__list-wrapper">
-        <?php
-        // カスタムタクソノミーの情報取得
-        $terms = get_terms(array(
-          'taxonomy' => 'price_category',
-          'hide_empty' => false,
-        ));
+          <?php
+          // カスタムタクソノミーの情報取得
+          $terms = get_terms(array(
+            'taxonomy' => 'price_category',
+            'hide_empty' => false,
+          ));
 
-        if (!empty($terms) && !is_wp_error($terms)) :
-          foreach ($terms as $term) :
-            // ターム名とそのスラッグを取得
-            $term_name = $term->name;
-            $term_slug = $term->slug;
-            // タームと紐づけたカスタムフィールドの情報取得
-            $course_names = get_term_meta($term->term_id, 'course_name', false);
-            $course_prices = get_term_meta($term->term_id, 'course_price', false);
+          if (!empty($terms) && !is_wp_error($terms)) :
+            foreach ($terms as $term) :
+              $term_name = $term->name;
+              $term_slug = $term->slug;
+              $course_names = get_term_meta($term->term_id, 'course_name', false);
+              $course_prices = get_term_meta($term->term_id, 'course_price', false);
 
-            $courses = array();
-            if (is_array($course_names) && is_array($course_prices)) {
-              for ($i = 0; $i < count($course_names); $i++) {
-                $courses[] = array(
-                  'course_name' => isset($course_names[$i]) ? $course_names[$i] : '',
-                  'course_price' => isset($course_prices[$i]) ? $course_prices[$i] : ''
-                );
+              $courses = array();
+              if (is_array($course_names) && is_array($course_prices)) {
+                for ($i = 0; $i < count($course_names); $i++) {
+                  $courses[] = array(
+                    'course_name' => isset($course_names[$i]) ? $course_names[$i] : '',
+                    'course_price' => isset($course_prices[$i]) ? $course_prices[$i] : ''
+                  );
+                }
               }
-            }
-        ?>
-          <div class="price__list">
-            <h3 class="price__list-title"><?php echo esc_html($term_name); ?></h3>
-            <?php if (!empty($courses)) : ?>
-              <?php foreach ($courses as $course) : ?>
-            <dl class="price__list-item">
-              <dt><?php echo wp_kses_post($course['course_name']); ?></dt>
-              <dd>&yen;<?php echo esc_html($course['course_price']); ?></dd>
-            </dl>
-            <?php endforeach; ?>
-          <?php endif; ?>
-          </div>
-        <?php
-          endforeach;
-        endif;
-        ?>
+          ?>
+              <div class="price__list">
+                <h3 class="price__list-title"><?php echo esc_html($term_name); ?></h3>
+                <?php if (!empty($courses)) : ?>
+                  <?php foreach ($courses as $course) : ?>
+                    <dl class="price__list-item price__list-item--top">
+                      <dt><?php echo wp_kses_post($course['course_name']); ?></dt>
+                      <dd>&yen;<?php echo esc_html($course['course_price']); ?></dd>
+                    </dl>
+                  <?php endforeach; ?>
+                <?php endif; ?>
+              </div>
+          <?php
+            endforeach;
+          endif;
+          ?>
         </div>
+
+
+
+
       </div>
       <div class="price__btn">
         <a class="btn" href="<?php echo $price; ?>">
