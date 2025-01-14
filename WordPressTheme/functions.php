@@ -1,6 +1,7 @@
 <?php
 
-// css/jsの読み込み
+/* ===================================================== */
+// cssとjsの読み込み
 function my_theme_enqueue_styles_and_scripts()
 {
   // Google Fonts
@@ -62,6 +63,7 @@ function my_theme_enqueue_styles_and_scripts()
     filemtime(get_theme_file_path('/assets/js/script.js')),
     true
   );
+
 }
 add_action('wp_enqueue_scripts', 'my_theme_enqueue_styles_and_scripts');
 
@@ -81,6 +83,7 @@ add_action('wp_default_scripts', 'disable_jquery_migrate');
 
 
 
+/* ===================================================== */
 // （ナビメニュー）グローバル変数の定義
 global $home, $campaign, $aboutus, $information, $blog, $voice, $price, $faq, $contact, $privacy, $termsofservice, $sitemap;
 
@@ -99,7 +102,7 @@ $sitemap = esc_url(home_url('/sitemap/'));
 
 
 
-
+/* ===================================================== */
 // アイキャッチの有効化
 function my_setup()
 {
@@ -121,6 +124,7 @@ add_action('after_setup_theme', 'my_setup');
 
 
 
+/* ===================================================== */
 // カスタム投稿の表示件数（キャンペーン）
 function change_campaign_posts_per_page($query)
 {
@@ -135,6 +139,7 @@ add_action('pre_get_posts', 'change_campaign_posts_per_page');
 
 
 
+/* ===================================================== */
 // カスタム投稿の表示件数（ボイス）
 function change_voice_posts_per_page($query)
 {
@@ -149,7 +154,8 @@ add_action('pre_get_posts', 'change_voice_posts_per_page');
 
 
 
-//サイドバーのブログ人気記事の設定（閲覧数をカウントして保存）
+/* ===================================================== */
+//サイドバーのブログ人気記事の設定（閲覧数をカウントして多い投稿を表示）
 function set_post_views($post_id)  // 閲覧数を保存
 {
   $count_key = 'post_views_count';
@@ -189,6 +195,7 @@ function get_post_views($post_id)  // 閲覧数を取得する関数
 
 
 
+/* ===================================================== */
 //通常投稿の名称変更
 function Change_menulabel()
 {
@@ -220,6 +227,7 @@ add_action('admin_menu', 'Change_menulabel');
 
 
 
+/* ===================================================== */
 // Contact Form 7で自動挿入されるPタグ、brタグを削除
 add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
 function wpcf7_autop_return_false()
@@ -229,6 +237,7 @@ function wpcf7_autop_return_false()
 
 
 
+/* ===================================================== */
 // カスタムタクソノミーをフォームのセレクトボックスに反映
 add_filter('wpcf7_form_tag', 'add_custom_taxonomy_to_cf7', 10, 2);
 
@@ -257,7 +266,7 @@ function add_custom_taxonomy_to_cf7($tag, $unused)
 }
 
 
-
+/* ===================================================== */
 // Contact Form7の送信ボタンをクリックした後の遷移先設定
 add_action('wp_footer', 'add_origin_thanks_page');
 function add_origin_thanks_page()
@@ -278,6 +287,7 @@ function add_origin_thanks_page()
 
 
 
+/* ===================================================== */
 // Contact Form 7のデフォルトメッセージを削除
 add_action('wp_footer', 'custom_disable_default_cf7_messages');
 function custom_disable_default_cf7_messages()
@@ -296,6 +306,9 @@ function custom_disable_default_cf7_messages()
 <?php
 }
 
+
+
+/* ===================================================== */
 // Contact Form 7に独自エラーメッセージ表示
 add_action('wp_footer', 'custom_error_message_script');
 function custom_error_message_script()
@@ -348,3 +361,30 @@ function custom_error_message_script()
   </script>
 <?php
 }
+
+
+
+/* ===================================================== */
+// 管理画面 メニューの並び替え
+function my_custom_menu_order($menu_order)
+{
+  if (!$menu_order) return true;
+  return array(
+    'index.php', //ダッシュボード
+    'separator1', //セパレータ
+    'edit.php', //通常投稿
+    'edit.php?post_type=campaign', //カスタムポスト
+    'edit.php?post_type=voice', //カスタムポスト
+    'edit.php?post_type=page', //固定ページ
+    'separator-last', //最後のセパレータ
+    'themes.php', //外観
+    'plugins.php', //プラグイン
+    'users.php', //ユーザー
+    'tools.php', //ツール
+    'options-general.php', //設定
+    'edit-comments.php', //コメント
+    'upload.php', //メディア
+  );
+}
+add_filter('custom_menu_order', 'my_custom_menu_order');
+add_filter('menu_order', 'my_custom_menu_order');

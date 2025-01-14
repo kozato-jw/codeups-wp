@@ -200,7 +200,7 @@
         ?>
           <?php while ($the_query->have_posts()): $the_query->the_post(); ?>
             <article class="blog-cards__item blog-card">
-              <a href="single.html" class="blog-card__link">
+              <a href="<?php the_permalink(); ?>" class="blog-card__link">
                 <div class="blog-card__image">
                   <!-- アイキャッチここから -->
                   <?php if (has_post_thumbnail()) : ?>
@@ -211,7 +211,7 @@
                   <!-- アイキャッチここまで -->
                 </div>
                 <div class="blog-card__meta">
-                  <time class="blog-card__date" datetime="2023-11-17">2023.11/17</time>
+                  <time class="blog-card__date" datetime="<?php the_time('c'); ?>"><?php the_time('Y.m/d'); ?></time>
                   <h3 class="blog-card__title"><?php the_title(); ?></h3>
                 </div>
                 <p class="blog-card__text"><?php the_excerpt(); ?></p>
