@@ -48,20 +48,20 @@
             $image_id = $item['gallery-image'];
             $image_url = wp_get_attachment_url($image_id);
 
-          if ($image_url) :
+            if ($image_url) :
         ?>
-        <div class="gallery__image">
-          <img src="<?php echo esc_url($image_url); ?>" alt="ギャラリーの画像">
-        </div>
+              <div class="gallery__image">
+                <img src="<?php echo esc_url($image_url); ?>" alt="ギャラリーの画像">
+              </div>
         <?php
-          endif;
+            endif;
           endforeach;
-          endif;
+        endif;
         ?>
         <!-- 繰り返しフィールド終了 -->
         <!-- モーダル用のHTML -->
         <div id="modal" class="modal">
-          <img id="modalimage" class="modal__content" alt="">
+          <div id="modalimage" class="modal__content"></div>
         </div>
       </div>
     </div>

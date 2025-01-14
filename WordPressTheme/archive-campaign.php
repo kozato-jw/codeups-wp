@@ -14,21 +14,35 @@
     <div class="inner">
 
       <!-- カスタムタクソノミー -->
-      <div class="campaign-sub__category category">
-        <a href="<?php echo esc_url(get_post_type_archive_link('campaign')); ?>" class="category__btn <?php if (!is_tax('campaign_category')) echo 'active'; ?>">all</a>
+      <div class="campaign-sub__category category" data-target="campaign-card">
+        <!-- "All" ボタン -->
+        <a href="<?php echo esc_url(get_post_type_archive_link('campaign')); ?>"
+          class="category__btn <?php if (!is_tax('campaign_category')) echo 'active'; ?>"
+          aria-current="<?php echo (!is_tax('campaign_category')) ? 'page' : 'false'; ?>"
+          data-tab="all">all</a>
+
         <?php
         $terms = get_terms(array(
           'taxonomy' => 'campaign_category',
           'hide_empty' => true,
         ));
 
-        foreach ($terms as $term) :
-          $is_active = (is_tax('campaign_category', $term->slug)) ? 'active' : ''; // 現在のタクソノミーを判定
+        if (!empty($terms) && !is_wp_error($terms)) {
+          foreach ($terms as $term) :
+            $is_active = (is_tax('campaign_category', $term->slug)) ? 'active' : '';
         ?>
-          <a href="<?php echo esc_url(get_term_link($term)); ?>" class="category__btn <?php echo esc_attr($is_active); ?>">
-            <?php echo esc_html($term->name); ?>
-          </a>
-        <?php endforeach; ?>
+            <a href="<?php echo esc_url(get_term_link($term)); ?>"
+              class="category__btn <?php echo esc_attr($is_active); ?>"
+              aria-current="<?php echo $is_active ? 'page' : 'false'; ?>"
+              data-tab="<?php echo esc_attr($term->slug); ?>">
+              <?php echo esc_html($term->name); ?>
+            </a>
+        <?php
+          endforeach;
+        } else {
+          echo '<p>カテゴリーはありません。</p>';
+        }
+        ?>
       </div>
       <!-- カスタムタクソノミーここまで -->
 
@@ -69,12 +83,12 @@
                 $campaign_details = get_field('campaign-details');
                 $period = get_field('period');
                 ?>
-                  <p class="campaign-card__price campaign-card__price--sub">
-                    <span class="campaign-card__price-disabled">&yen;<?php echo esc_html($regular_price); ?></span>
-                    <span class="campaign-card__price-current">&yen;<?php echo esc_html($special_price); ?></span>
-                  </p>
-                  <p class="campaign-card__description u-desktop"><?php echo esc_html($campaign_details); ?></p>
-                  <p class="campaign-card__description-date u-desktop"><?php echo esc_html($period); ?></p>
+                <p class="campaign-card__price campaign-card__price--sub">
+                  <span class="campaign-card__price-disabled">&yen;<?php echo esc_html($regular_price); ?></span>
+                  <span class="campaign-card__price-current">&yen;<?php echo esc_html($special_price); ?></span>
+                </p>
+                <p class="campaign-card__description u-desktop"><?php echo esc_html($campaign_details); ?></p>
+                <p class="campaign-card__description-date u-desktop"><?php echo esc_html($period); ?></p>
                 <p class="campaign-card__description-cta u-desktop">ご予約・お問い合わせはコチラ</p>
                 <div class="campaign-card__btn u-desktop">
                   <a class="btn" href="<?php echo $contact; ?>">
