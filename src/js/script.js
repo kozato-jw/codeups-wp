@@ -348,4 +348,4 @@ $(document).ready(function() {
 
 
 
-});
+}); // 冒頭「jQuery(function($) { 」 の閉じ

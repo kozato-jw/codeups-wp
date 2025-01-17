@@ -11,10 +11,10 @@ global $home, $campaign, $aboutus, $information, $blog, $voice, $price, $faq, $c
         </a>
       </div>
       <div class="footer__sns">
-        <a href="#">
+        <a href="https://www.facebook.com/" target="_blank">
           <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/facebook.svg" alt="フェイスブックのアイコン">
         </a>
-        <a href="#">
+        <a href="https://www.instagram.com/" target="_blank">
           <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/instagram.svg" alt="インスタグラムのアイコン">
         </a>
       </div>

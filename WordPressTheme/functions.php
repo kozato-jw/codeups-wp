@@ -125,6 +125,22 @@ add_action('after_setup_theme', 'my_setup');
 
 
 /* ===================================================== */
+// 通常投稿（ブログ）の本文抜粋文字数と末尾記号の変更
+function custom_excerpt_length($length)
+{
+  return 90; // 100文字
+}
+add_filter('excerpt_length', 'custom_excerpt_length');
+
+function custom_excerpt_more($more)
+{
+  return '…'; //記号を三点リーダーに変更
+}
+add_filter('excerpt_more', 'custom_excerpt_more');
+
+
+
+/* ===================================================== */
 // カスタム投稿の表示件数（キャンペーン）
 function change_campaign_posts_per_page($query)
 {

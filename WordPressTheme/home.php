@@ -15,7 +15,7 @@
       <div class="blog-sub__content">
         <div class="blog-sub__cards blog-cards blog-cards--sub">
 
-          <!-- ループ開始 -->
+          <!-- メインループ開始 -->
           <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
               <article class="blog-cards__item blog-card">
                 <a href="<?php the_permalink(); ?>" class="blog-card__link">
@@ -37,7 +37,7 @@
               </article>
           <?php endwhile;
           endif; ?>
-          <!-- ループ終了 -->
+          <!-- メインループ終了 -->
         </div>
         <?php wp_pagenavi(); ?>
       </div>
