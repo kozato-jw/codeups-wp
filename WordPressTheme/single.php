@@ -34,17 +34,21 @@
         endif; ?>
         <!-- 記事前後のボタン -->
         <?php
+        // 前へ
         $prev = get_previous_post();
-        $prev_url = get_permalink($prev->ID);
+        // 前の投稿が存在する場合のみURLを取得
+        $prev_url = $prev ? get_permalink($prev->ID) : null;
+        // 次へ
         $next = get_next_post();
-        $next_url = get_permalink($next->ID);
+        // 次の投稿が存在する場合のみURLを取得
+        $next_url = $next ? get_permalink($next->ID) : null;
         ?>
         <div class="wp-pagenavi">
-          <?php if ($prev_url): ?>
-            <a class="previouspostslink" rel="prev" href="<?php echo $prev_url; ?>"></a>
+          <?php if ($prev_url): ?> <!--前記事があればボタン表示-->
+            <a class="previouspostslink" rel="prev" href="<?php echo esc_url($prev_url); ?>"></a>
           <?php endif; ?>
-          <?php if ($next_url): ?>
-            <a class="nextpostslink" rel="next" href="<?php echo $next_url; ?>"></a>
+          <?php if ($next_url): ?> <!--次記事があればボタン表示-->
+            <a class="nextpostslink" rel="next" href="<?php echo esc_url($next_url); ?>"></a>
           <?php endif; ?>
         </div>
         <!-- 記事前後のボタンここまで -->

@@ -176,7 +176,7 @@ global  $campaign, $blog, $voice;
             }
             $current_year = $year->year;
             echo '<li class="sidebar__archive-list">';
-            echo '<a class="sidebar__archive-year">' . esc_html($year->year) . '</a>';
+            echo '<p class="sidebar__archive-year">' . esc_html($year->year) . '</p>';
             echo '<ol class="sidebar__archive-months">';
           }
 

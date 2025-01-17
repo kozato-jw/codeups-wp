@@ -316,4 +316,4 @@ jQuery(function ($) {
     scrollToHash();
     $(window).on('hashchange', scrollToHash);
   });
-});
+}); // 冒頭「jQuery(function($) { 」 の閉じ

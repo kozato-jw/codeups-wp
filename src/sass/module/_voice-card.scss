@@ -146,4 +146,8 @@
   line-height: 1.5;
   margin: 0;
   font-weight: $regular;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
 }
