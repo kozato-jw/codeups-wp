@@ -7,9 +7,10 @@
       <img class="mv-sub__image" src="<?php echo get_theme_file_uri(); ?>/assets/images/common/blog-mv_sp.jpg" alt="海中を泳ぐ魚の画像">
     </picture>
   </section>
-  <div class="breadcrumbs blog-single-breadcrumbs">
-    <div class="breadcrumbs__inner inner"><?php get_template_part('parts/breadcrumb'); ?></div>
-  </div>
+
+  <!-- パンクズリスト -->
+  <?php get_template_part('parts/breadcrumb'); ?>
+
   <div class="blog-sub inner blog-sub-content">
     <div class="blog-sub__inner inner">
       <div class="blog-sub__post-wrapper">
@@ -27,11 +28,17 @@
               </figure>
               <!-- アイキャッチここまで -->
               <div class="blog-post__content">
-                <?php the_content(); ?>
+
+                <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+                    <?php the_content() ?>
+                <?php endwhile;
+                endif; ?>
+
               </div>
             </article>
         <?php endwhile;
         endif; ?>
+
         <!-- 記事前後のボタン -->
         <?php
         // 前へ
@@ -52,10 +59,16 @@
           <?php endif; ?>
         </div>
         <!-- 記事前後のボタンここまで -->
+
       </div>
-      <?php get_sidebar(); ?>
+
+      <!-- サイドバー取得 -->
+      <div class="blog-sub__sidebar">
+        <?php get_sidebar(); ?>
+      </div>
+      
     </div>
   </div>
-  <?php get_template_part('parts/common-contact'); ?>
+
 </main>
 <?php get_footer(); ?>

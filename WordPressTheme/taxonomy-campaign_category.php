@@ -7,9 +7,10 @@
       <img class="mv-sub__image" src="<?php echo get_theme_file_uri(); ?>/assets/images/common/campaign-mv_sp.jpg" alt="海中を泳ぐ黄色い魚の画像">
     </picture>
   </section>
-  <div class="breadcrumbs campaign-breadcrumbs">
-    <div class="breadcrumbs__inner inner"><?php get_template_part('parts/breadcrumb'); ?></div>
-  </div>
+
+  <!-- パンクズリスト -->
+  <?php get_template_part('parts/breadcrumb'); ?>
+
   <section class="campaign-sub campaign-sub-content icon-fish">
     <div class="inner">
 
@@ -104,6 +105,6 @@
       <?php wp_pagenavi(); ?>
     </div>
   </section>
-  <?php get_template_part('parts/common-contact'); ?>
+
 </main>
 <?php get_footer(); ?>

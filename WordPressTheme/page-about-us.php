@@ -7,9 +7,10 @@
       <img class="mv-sub__image" src="<?php echo get_theme_file_uri(); ?>/assets/images/common/aboutus-mv_sp.jpg" alt="シーサーの画像">
     </picture>
   </section>
-  <div class="breadcrumbs about-breadcrumbs">
-    <div class="breadcrumbs__inner inner"><?php get_template_part('parts/breadcrumb'); ?></div>
-  </div>
+
+  <!-- パンクズリスト -->
+  <?php get_template_part('parts/breadcrumb'); ?>
+
   <section class="about about--sub about-sub-content icon-fish icon-fish--about">
     <div class="about__inner inner">
       <div class="about__image about__image--sub">
@@ -66,6 +67,6 @@
       </div>
     </div>
   </section>
-  <?php get_template_part('parts/common-contact'); ?>
+
 </main>
 <?php get_footer(); ?>

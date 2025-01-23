@@ -7,9 +7,10 @@
       <img class="mv-sub__image" src="<?php echo get_theme_file_uri(); ?>/assets/images/common/price-mv_sp.jpg" alt="ダイバーが海面から頭を出している画像">
     </picture>
   </section>
-  <div class="breadcrumbs price-breadcrumbs">
-    <div class="breadcrumbs__inner inner"><?php get_template_part('parts/breadcrumb'); ?></div>
-  </div>
+
+  <!-- パンクズリスト -->
+  <?php get_template_part('parts/breadcrumb'); ?>
+
   <section class="price-sub price-sub-content icon-fish icon-fish--price">
     <div class="inner-sub">
       <div class="price-sub__items price-lists">
@@ -69,6 +70,6 @@
       </div>
     </div>
   </section>
-  <?php get_template_part('parts/common-contact'); ?>
+
 </main>
 <?php get_footer(); ?>

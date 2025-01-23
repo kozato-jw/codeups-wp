@@ -7,9 +7,10 @@
       <img class="mv-sub__image" src="<?php echo get_theme_file_uri(); ?>/assets/images/common/faq-mv_sp.jpg" alt="青い波と白い砂浜の波打ち際の画像">
     </picture>
   </section>
-  <div class="breadcrumbs faq-breadcrumbs">
-    <div class="breadcrumbs__inner inner"><?php get_template_part('parts/breadcrumb'); ?></div>
-  </div>
+
+  <!-- パンクズリスト -->
+  <?php get_template_part('parts/breadcrumb'); ?>
+
   <section class="faq-sub faq-sub-content icon-fish">
     <div class="inner-sub">
       <div class="faq-sub__items faq-boxes">
@@ -22,20 +23,19 @@
             $faq_title = $faq_item['faq_title'];
             $faq_answer = $faq_item['faq_answer'];
         ?>
-        <div class="faq-boxes__item faq-box">
-          <h2 class="faq-box__function"><?php echo esc_html($faq_title); ?></h2>
-          <div class="faq-box__answer">
-            <p class="faq-box__answer-text"><?php echo esc_html($faq_answer); ?></p>
-          </div>
-        </div>
+            <div class="faq-boxes__item faq-box">
+              <h2 class="faq-box__function"><?php echo esc_html($faq_title); ?></h2>
+              <div class="faq-box__answer">
+                <p class="faq-box__answer-text"><?php echo esc_html($faq_answer); ?></p>
+              </div>
+            </div>
         <?php
           endforeach;
-          endif;
+        endif;
         ?>
         <!-- 繰り返しフィールド終了 -->
       </div>
     </div>
   </section>
-  <?php get_template_part('parts/common-contact'); ?>
 </main>
 <?php get_footer(); ?>

@@ -7,9 +7,10 @@
       <img class="mv-sub__image" src="<?php echo get_theme_file_uri(); ?>/assets/images/common/info-mv_sp.jpg" alt="海中を泳ぐ魚の画像">
     </picture>
   </section>
-  <div class="breadcrumbs information-breadcrumbs">
-    <div class="breadcrumbs__inner inner"><?php get_template_part('parts/breadcrumb'); ?></div>
-  </div>
+
+  <!-- パンクズリスト -->
+  <?php get_template_part('parts/breadcrumb'); ?>
+
   <section class="information-sub information-sub-content icon-fish icon-fish--information">
     <div class="inner">
       <div class="information-sub__tab tab">
@@ -66,6 +67,6 @@
       </div>
     </div>
   </section>
-  <?php get_template_part('parts/common-contact'); ?>
+
 </main>
 <?php get_footer(); ?>
