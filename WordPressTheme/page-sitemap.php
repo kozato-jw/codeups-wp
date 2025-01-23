@@ -9,9 +9,10 @@
       <img class="mv-sub__image" src="<?php echo get_theme_file_uri(); ?>/assets/images/common/under-common-mv_sp.jpg" alt="海中で無数の小魚が泳いでいる画像">
     </picture>
   </section>
-  <div class="breadcrumbs sitemap-breadcrumbs">
-    <div class="breadcrumbs__inner inner"><?php get_template_part('parts/breadcrumb'); ?></div>
-  </div>
+
+  <!-- パンクズリスト -->
+  <?php get_template_part('parts/breadcrumb'); ?>
+
   <div class="sitemap sitemap-content icon-fish icon-fish--sitemap">
     <div class="inner">
       <nav class="sitemap__nav gnav">
@@ -119,6 +120,6 @@
       </nav>
     </div>
   </div>
-  <?php get_template_part('parts/common-contact'); ?>
+
 </main>
 <?php get_footer(); ?>

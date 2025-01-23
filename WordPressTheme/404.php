@@ -1,11 +1,10 @@
 <?php get_header(); ?>
 <main>
   <div class="error404">
-    <div class="breadcrumbs error404-breadcrumbs">
-      <div class="breadcrumbs__inner breadcrumbs__inner--404 inner">
-        <?php get_template_part('parts/breadcrumb'); ?>
-      </div>
-    </div>
+    
+    <!-- パンクズリスト -->
+    <?php get_template_part('parts/breadcrumb'); ?>
+
     <div class="error404__wrapper">
       <h1 class="error404__title">404</h1>
       <p class="error404__text">申し訳ありません。

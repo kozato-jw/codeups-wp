@@ -145,10 +145,6 @@ a {
 	transition: opacity 0.3s;
 }
 
-.about-breadcrumbs {
-	margin-bottom: 3.125rem;
-}
-
 .about-gallery {
 	margin-bottom: 6.625rem;
 }
@@ -157,23 +153,15 @@ a {
 	margin-bottom: 0.5rem;
 }
 
-.blog-breadcrumbs {
-	margin-bottom: 3.125rem;
-}
-
 .blog-mv {
 	margin-bottom: 0.5rem;
-}
-
-.blog-single-breadcrumbs {
-	margin-bottom: 3.25rem;
 }
 
 .blog-sub-content {
 	margin-bottom: 6.625rem;
 }
 
-.campaign-breadcrumbs {
+.breadcrumbs-margin {
 	margin-bottom: 3.125rem;
 }
 
@@ -185,14 +173,6 @@ a {
 	margin-bottom: 6.625rem;
 }
 
-.contact-breadcrumbs {
-	margin-bottom: 3.125rem;
-}
-
-.contact-breadcrumbs--complete {
-	margin-bottom: 3.125rem;
-}
-
 .contact-complete {
 	margin-bottom: 9rem;
 }
@@ -201,16 +181,12 @@ a {
 	margin-bottom: 8.75rem;
 }
 
+.contact-margin {
+	margin-bottom: 6.125rem;
+}
+
 .contact-mv {
 	margin-bottom: 0.5rem;
-}
-
-.error404-breadcrumbs {
-	margin-bottom: 3.75rem;
-}
-
-.faq-breadcrumbs {
-	margin-bottom: 3.125rem;
 }
 
 .faq-mv {
@@ -221,20 +197,12 @@ a {
 	margin-bottom: 6.625rem;
 }
 
-.information-breadcrumbs {
-	margin-bottom: 7.5rem;
-}
-
 .information-mv {
 	margin-bottom: 0.5rem;
 }
 
 .information-sub-content {
 	margin-bottom: 6.625rem;
-}
-
-.price-breadcrumbs {
-	margin-bottom: 3.125rem;
 }
 
 .price-mv {
@@ -245,20 +213,12 @@ a {
 	margin-bottom: 6.5625rem;
 }
 
-.privacy-breadcrumbs {
-	margin-bottom: 3.125rem;
-}
-
 .privacy-content {
 	margin-bottom: 6.625rem;
 }
 
 .privacy-mv {
 	margin-bottom: 0.5rem;
-}
-
-.sitemap-breadcrumbs {
-	margin-bottom: 3.25rem;
 }
 
 .sitemap-content {
@@ -285,10 +245,6 @@ a {
 	margin-bottom: 4.9375rem;
 }
 
-.top-contact {
-	margin-bottom: 6.125rem;
-}
-
 .top-information {
 	margin-bottom: 5rem;
 }
@@ -303,10 +259,6 @@ a {
 
 .top-voice {
 	margin-bottom: 4.875rem;
-}
-
-.voice-breadcrumbs {
-	margin-bottom: 3.1875rem;
 }
 
 .voice-mv {
@@ -2782,10 +2734,6 @@ html {
 	font-size: 1.4814814815vw;
 }
 
-.about-breadcrumbs {
-	margin-bottom: 9.375rem;
-}
-
 .about-gallery {
 	margin-bottom: 8.75rem;
 }
@@ -2794,32 +2742,16 @@ html {
 	margin-bottom: 7.5rem;
 }
 
-.blog-breadcrumbs {
-	margin-bottom: 9.375rem;
-}
-
-.blog-single-breadcrumbs {
-	margin-bottom: 9.375rem;
-}
-
 .blog-sub-content {
 	margin-bottom: 8.875rem;
 }
 
-.campaign-breadcrumbs {
+.breadcrumbs-margin {
 	margin-bottom: 9.375rem;
 }
 
 .campaign-sub-content {
 	margin-bottom: 8.75rem;
-}
-
-.contact-breadcrumbs {
-	margin-bottom: 8.5rem;
-}
-
-.contact-breadcrumbs--complete {
-	margin-bottom: 9.375rem;
 }
 
 .contact-complete {
@@ -2830,44 +2762,24 @@ html {
 	margin-bottom: 10.625rem;
 }
 
-.error404-breadcrumbs {
-	margin-bottom: 8.5rem;
-}
-
-.faq-breadcrumbs {
-	margin-bottom: 9.375rem;
+.contact-margin {
+	margin-bottom: 9.9375rem;
 }
 
 .faq-sub-content {
 	margin-bottom: 8.75rem;
 }
 
-.information-breadcrumbs {
-	margin-bottom: 9.375rem;
-}
-
 .information-sub-content {
 	margin-bottom: 8.75rem;
-}
-
-.price-breadcrumbs {
-	margin-bottom: 9.6875rem;
 }
 
 .price-sub-content {
 	margin-bottom: 8.875rem;
 }
 
-.privacy-breadcrumbs {
-	margin-bottom: 9.375rem;
-}
-
 .privacy-content {
 	margin-bottom: 8.75rem;
-}
-
-.sitemap-breadcrumbs {
-	margin-bottom: 9.375rem;
 }
 
 .sitemap-content {
@@ -2890,10 +2802,6 @@ html {
 	margin-bottom: 8.6875rem;
 }
 
-.top-contact {
-	margin-bottom: 9.9375rem;
-}
-
 .top-information {
 	margin-bottom: 0;
 }
@@ -2908,10 +2816,6 @@ html {
 
 .top-voice {
 	margin-bottom: 8.6875rem;
-}
-
-.voice-breadcrumbs {
-	margin-bottom: 9.375rem;
 }
 
 .voice-sub-content {

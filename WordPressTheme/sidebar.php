@@ -1,7 +1,7 @@
 <?php
 global  $campaign, $blog, $voice;
 ?>
-<aside class="blog-sub__sidebar sidebar">
+<aside class="sidebar">
   <div class="sidebar__inner">
 
     <!-- 人気記事 -->

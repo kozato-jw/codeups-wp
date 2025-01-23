@@ -7,9 +7,10 @@
       <img class="mv-sub__image" src="<?php echo get_theme_file_uri(); ?>/assets/images/common/blog-mv_sp.jpg" alt="海中を泳ぐ魚の画像">
     </picture>
   </section>
-  <div class="breadcrumbs blog-breadcrumbs">
-    <div class="breadcrumbs__inner inner"><?php get_template_part('parts/breadcrumb'); ?></div>
-  </div>
+
+  <!-- パンクズリスト -->
+  <?php get_template_part('parts/breadcrumb'); ?>
+
   <div class="blog-sub blog-sub-content icon-fish">
     <div class="blog-sub__inner inner">
       <div class="blog-sub__content">
@@ -41,11 +42,19 @@
           <?php endif; ?>
           <!-- ループ終了 -->
         </div>
+
+        <!-- ページネーション取得 -->
         <?php wp_pagenavi(); ?>
+
       </div>
-      <?php get_sidebar(); ?>
+
+      <!-- サイドバー取得 -->
+      <div class="blog-sub__sidebar">
+        <?php get_sidebar(); ?>
+      </div>
+      
     </div>
   </div>
-  <?php get_template_part('parts/common-contact'); ?>
+
 </main>
 <?php get_footer(); ?>

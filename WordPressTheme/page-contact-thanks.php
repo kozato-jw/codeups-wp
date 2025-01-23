@@ -11,9 +11,10 @@ get_header(); ?>
       <img class="mv-sub__image" src="<?php echo get_theme_file_uri(); ?>/assets/images/common/contact-mv_sp.jpg" alt="青い波と白い砂浜の波打ち際の画像">
     </picture>
   </section>
-  <div class="breadcrumbs contact-breadcrumbs">
-    <div class="breadcrumbs__inner inner"><?php get_template_part('parts/breadcrumb'); ?></div>
-  </div>
+
+  <!-- パンクズリスト -->
+  <?php get_template_part('parts/breadcrumb'); ?>
+  
   <div class="complete contact-complete icon-fish icon-fish--complete">
     <div class="inner">
       <p class="complete__text complete__text--top">お問い合わせ内容を送信完了しました。</p>

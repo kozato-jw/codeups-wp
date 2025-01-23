@@ -7,9 +7,9 @@
       <img class="mv-sub__image" src="<?php echo get_theme_file_uri(); ?>/assets/images/common/contact-mv_sp.jpg" alt="青い波と白い砂浜の波打ち際の画像">
     </picture>
   </section>
-  <div class="breadcrumbs contact-breadcrumbs">
-    <div class="breadcrumbs__inner inner"><?php get_template_part('parts/breadcrumb'); ?></div>
-  </div>
+  
+  <!-- パンクズリスト -->
+  <?php get_template_part('parts/breadcrumb'); ?>
 
   <div class="contact contact-form icon-fish icon-fish--contact">
     <div class="inner-sub">

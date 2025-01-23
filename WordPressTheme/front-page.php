@@ -372,6 +372,6 @@
       </div>
     </div>
   </section>
-  <?php get_template_part('parts/common-contact'); ?>
+
 </main>
 <?php get_footer(); ?>
