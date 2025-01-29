@@ -2523,7 +2523,6 @@ textarea {
 }
 
 .voice-card__info {
-	height: 100%;
 	width: 47.5%;
 }
 
@@ -2592,15 +2591,11 @@ textarea {
 }
 
 .voice-card__text {
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 7;
 	color: #0D2936;
-	display: -webkit-box;
 	font-size: 1rem;
 	font-weight: 400;
 	line-height: 1.5;
 	margin: 0;
-	overflow: hidden;
 }
 
 .voice-cards__item {

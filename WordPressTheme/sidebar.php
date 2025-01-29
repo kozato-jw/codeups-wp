@@ -70,8 +70,12 @@ global  $campaign, $blog, $voice;
                   $age = get_field('age');
                   $gender = get_field('gender');
                   ?>
-                  <p class="voice-card__age voice-card__age--sidebar"><?php echo esc_html($age); ?>
-                    &lpar;<?php echo esc_html($gender); ?>&rpar;</p>
+                  <?php if (!empty($age) && !empty($gender)): ?>
+                    <p class="voice-card__age">
+                      <?php echo esc_html($age); ?>
+                      &lpar;<?php echo esc_html($gender); ?>&rpar;
+                    </p>
+                  <?php endif; ?>
                 </div>
                 <h3 class="voice-card__title voice-card__title--sidebar"><?php the_title(); ?></h3>
               </div>
@@ -135,8 +139,12 @@ global  $campaign, $blog, $voice;
                 $special_price = get_field('special-price');
                 ?>
                 <p class="campaign-card__price campaign-card__price--sidebar">
-                  <span class="campaign-card__price-disabled campaign-card__price-disabled--sidebar">&yen;<?php echo esc_html($regular_price); ?></span>
-                  <span class="campaign-card__price-current campaign-card__price-current--sidebar">&yen;<?php echo esc_html($special_price); ?></span>
+                  <?php if ($regular_price): ?>
+                    <span class="campaign-card__price-disabled campaign-card__price-disabled--sidebar">&yen;<?php echo esc_html($regular_price); ?></span>
+                  <?php endif; ?>
+                  <?php if ($special_price): ?>
+                    <span class="campaign-card__price-current campaign-card__price-current--sidebar">&yen;<?php echo esc_html($special_price); ?></span>
+                  <?php endif; ?>
                 </p>
               </div>
             </div>

@@ -17,7 +17,7 @@
       <div class="mv__swiper-wrapper swiper-wrapper">
         <!-- 繰り返しフィールド開始（MVスライダー画像） -->
         <?php
-        $mv = scf::get('mv');
+        $mv = SCF::get('mv');
         if (!empty($mv)) :
           foreach ($mv as $index => $mv_item):
             $mv_image_pc = isset($mv_item['mv_image_pc']) ? $mv_item['mv_image_pc'] : '';
@@ -104,8 +104,12 @@
                     $special_price = get_field('special-price');
                     ?>
                     <p class="campaign-card__price">
-                      <span class="campaign-card__price-disabled">&yen;<?php echo esc_html($regular_price); ?></span>
-                      <span class="campaign-card__price-current">&yen;<?php echo esc_html($special_price); ?></span>
+                      <?php if ($regular_price): ?>
+                        <span class="campaign-card__price-disabled">&yen;<?php echo esc_html($regular_price); ?></span>
+                      <?php endif; ?>
+                      <?php if ($special_price): ?>
+                        <span class="campaign-card__price-current">&yen;<?php echo esc_html($special_price); ?></span>
+                      <?php endif; ?>
                     </p>
                   </div>
                 </div>
@@ -267,10 +271,12 @@
                     $gender = get_field('gender');
                     $voicetext = get_field('voice-text');
                     ?>
-                    <p class="voice-card__age">
-                      <?php echo esc_html($age); ?>
-                      &lpar;<?php echo esc_html($gender); ?>&rpar;
-                    </p>
+                    <?php if (!empty($age) && !empty($gender)): ?>
+                      <p class="voice-card__age">
+                        <?php echo esc_html($age); ?>
+                        &lpar;<?php echo esc_html($gender); ?>&rpar;
+                      </p>
+                    <?php endif; ?>
                     <p class="voice-card__category"><?php echo esc_html($categories[0]->name ?? '未分類'); ?></p>
                   </div>
                   <h2 class="voice-card__title"><?php the_title(); ?></h2>
@@ -287,9 +293,12 @@
                   <!-- アイキャッチここまで -->
                 </div>
               </div>
-              <p class="voice-card__text">
-                <?php echo esc_html($voicetext); ?>
-              </p>
+              <?php if ($voicetext): ?>
+                <p class="voice-card__text">
+                  <!-- 文字数制限300文字 -->
+                  <?php echo custom_excerpt($voicetext); ?>
+                </p>
+              <?php endif; ?>
             </article>
           <?php endwhile; ?>
           <?php wp_reset_postdata(); ?>
@@ -349,8 +358,11 @@
                 <?php if (!empty($courses)) : ?>
                   <?php foreach ($courses as $course) : ?>
                     <dl class="price__list-item price__list-item--top">
-                      <dt><?php echo wp_kses_post($course['course_name']); ?></dt>
-                      <dd>&yen;<?php echo esc_html($course['course_price']); ?></dd>
+                      <!-- コース名とプライスを両方取得できた場合のみ表示 -->
+                      <?php if (!empty($course['course_name']) && !empty($course['course_price'])): ?>
+                        <dt><?php echo wp_kses_post($course['course_name']); ?></dt>
+                        <dd>&yen;<?php echo esc_html($course['course_price']); ?></dd>
+                      <?php endif; ?>
                     </dl>
                   <?php endforeach; ?>
                 <?php endif; ?>
@@ -360,9 +372,6 @@
           endif;
           ?>
         </div>
-
-
-
 
       </div>
       <div class="price__btn">

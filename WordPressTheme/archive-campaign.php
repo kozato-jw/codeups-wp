@@ -82,14 +82,24 @@
                 $regular_price = get_field('regular-price');
                 $special_price = get_field('special-price');
                 $campaign_details = get_field('campaign-details');
-                $period = get_field('period');
+                $start = get_field('start');
+                $end = get_field('end');
                 ?>
                 <p class="campaign-card__price campaign-card__price--sub">
-                  <span class="campaign-card__price-disabled">&yen;<?php echo esc_html($regular_price); ?></span>
-                  <span class="campaign-card__price-current">&yen;<?php echo esc_html($special_price); ?></span>
+                  <?php if ($regular_price): ?>
+                    <span class="campaign-card__price-disabled">&yen;<?php echo esc_html($regular_price); ?></span>
+                  <?php endif; ?>
+                  <?php if ($special_price): ?>
+                    <span class="campaign-card__price-current">&yen;<?php echo esc_html($special_price); ?></span>
+                  <?php endif; ?>
                 </p>
-                <p class="campaign-card__description u-desktop"><?php echo esc_html($campaign_details); ?></p>
-                <p class="campaign-card__description-date u-desktop"><?php echo esc_html($period); ?></p>
+                <?php if ($campaign_details): ?>
+                  <p class="campaign-card__description u-desktop"><?php echo esc_html($campaign_details); ?></p>
+                <?php endif; ?>
+                <!-- 開始日と終了日が両方も入力されている場合のみ表示  -->
+                <?php if (!empty($start) && !empty($end)) : ?>
+                  <p class="campaign-card__description-date u-desktop"><?php echo esc_html($start); ?> &ndash;<?php echo esc_html($end); ?></p>
+                <?php endif; ?>
                 <p class="campaign-card__description-cta u-desktop">ご予約・お問い合わせはコチラ</p>
                 <div class="campaign-card__btn u-desktop">
                   <a class="btn" href="<?php echo $contact; ?>">
