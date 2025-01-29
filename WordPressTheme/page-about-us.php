@@ -32,7 +32,25 @@
       </div>
     </div>
   </section>
+  
+  <!-- ギャラリーセクション -->
+  <?php 
+  $gallery = SCF::get('gallery'); 
+  $has_valid_image = false;
 
+  if (!empty($gallery)) {
+      foreach ($gallery as $item) {
+          $image_id = $item['gallery-image'];
+          $image_url = wp_get_attachment_url($image_id);
+          if ($image_url) {
+              $has_valid_image = true;
+              break;
+          }
+      }
+  }
+  ?>
+
+  <?php if ($has_valid_image): ?>
   <section class="about__gallery gallery about-gallery">
     <div class="inner">
       <div class="gallery__title section-title">
@@ -40,26 +58,16 @@
         <h2 class="section-title__ja">フォト</h2>
       </div>
       <div class="gallery__images">
-        <!-- 繰り返しフィールド開始 -->
-        <?php
-        $gallery = scf::get('gallery');
-
-        if (!empty($gallery)) :
-          foreach ($gallery as $index => $item) :
+        <?php foreach ($gallery as $index => $item): 
             $image_id = $item['gallery-image'];
             $image_url = wp_get_attachment_url($image_id);
 
-            if ($image_url) :
-        ?>
+            if ($image_url): ?>
               <div class="gallery__image">
                 <img src="<?php echo esc_url($image_url); ?>" alt="ギャラリーの画像">
               </div>
-        <?php
-            endif;
-          endforeach;
-        endif;
-        ?>
-        <!-- 繰り返しフィールド終了 -->
+        <?php endif; endforeach; ?>
+        
         <!-- モーダル用のHTML -->
         <div id="modal" class="modal">
           <div id="modalimage" class="modal__content"></div>
@@ -67,6 +75,8 @@
       </div>
     </div>
   </section>
+<?php endif; ?>
+
 
 </main>
 <?php get_footer(); ?>

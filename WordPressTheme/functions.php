@@ -128,13 +128,13 @@ add_action('after_setup_theme', 'my_setup');
 // 通常投稿（ブログ）の本文抜粋文字数と末尾記号の変更
 function custom_excerpt_length($length)
 {
-  return 90; // 100文字
+  return 90;
 }
 add_filter('excerpt_length', 'custom_excerpt_length');
 
 function custom_excerpt_more($more)
 {
-  return '…'; //記号を三点リーダーに変更
+  return '...'; //記号を三点リーダーに変更
 }
 add_filter('excerpt_more', 'custom_excerpt_more');
 
@@ -156,7 +156,8 @@ add_action('pre_get_posts', 'change_campaign_posts_per_page');
 
 
 /* ===================================================== */
-// カスタム投稿の表示件数（ボイス）
+// カスタム投稿の表示件数（ボイス）と文字数制限
+// ---表示件数
 function change_voice_posts_per_page($query)
 {
   if (is_admin() || !$query->is_main_query()) {
@@ -167,6 +168,16 @@ function change_voice_posts_per_page($query)
   }
 }
 add_action('pre_get_posts', 'change_voice_posts_per_page');
+
+// ---文字数
+function custom_excerpt($content, $length = 300)
+{
+  if (is_archive()) {
+    return $content;
+  } else {
+    return mb_strimwidth(strip_tags($content), 0, $length, '...', 'UTF-8');
+  }
+}
 
 
 

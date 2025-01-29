@@ -68,10 +68,12 @@
                     $gender = get_field('gender');
                     $voicetext = get_field('voice-text');
                     ?>
-                    <p class="voice-card__age">
-                      <?php echo esc_html($age); ?>
-                      &lpar;<?php echo esc_html($gender); ?>&rpar;
-                    </p>
+                    <?php if (!empty($age) && !empty($gender)): ?>
+                      <p class="voice-card__age">
+                        <?php echo esc_html($age); ?>
+                        &lpar;<?php echo esc_html($gender); ?>&rpar;
+                      </p>
+                    <?php endif; ?>
                     <p class="voice-card__category"><?php echo esc_html($categories[0]->name ?? '未分類'); ?></p>
                   </div>
                   <h2 class="voice-card__title"><?php the_title(); ?></h2>
@@ -86,14 +88,20 @@
                   </figure>
                 </div>
               </div>
-              <p class="voice-card__text">
-                <?php echo esc_html($voicetext); ?>
-              </p>
+              <?php if ($voicetext): ?>
+                <p class="voice-card__text">
+                  <!-- 文字数制限の関数を適用（custom_excerpt） -->
+                  <?php echo custom_excerpt($voicetext); ?>
+                </p>
+              <?php endif; ?>
             </article>
         <?php endwhile;
         endif; ?>
       </div>
+
+      <!-- ページネーション取得 -->
       <?php wp_pagenavi(); ?>
+      
     </div>
   </div>
 

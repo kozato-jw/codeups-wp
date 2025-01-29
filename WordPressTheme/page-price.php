@@ -50,12 +50,15 @@
                   <?php if (!empty($courses)) : ?>
                     <?php foreach ($courses as $course) : ?>
                       <tr>
-                        <th class="price-list__head">
-                          <?php echo wp_kses_post($course['course_name']); ?>
-                        </th>
-                        <td class="price-list__price">
-                          &yen;<?php echo esc_html($course['course_price']); ?>
-                        </td>
+                        <!-- コース名とプライスを両方取得できた場合のみ表示 -->
+                        <?php if (!empty($course['course_name']) && !empty($course['course_price'])): ?>
+                          <th class="price-list__head">
+                            <?php echo wp_kses_post($course['course_name']); ?>
+                          </th>
+                          <td class="price-list__price">
+                            &yen;<?php echo esc_html($course['course_price']); ?>
+                          </td>
+                        <?php endif; ?>
                       </tr>
                     <?php endforeach; ?>
                   <?php endif; ?>
