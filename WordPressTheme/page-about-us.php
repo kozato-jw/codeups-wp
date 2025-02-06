@@ -25,40 +25,39 @@
           <span class="about__initial">o</span>cean
         </h2>
         <div class="about__text-wrapper">
-          <p class="about__text about__text--sub">ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。
-            <br>ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。
+          <p class="about__text about__text--sub">私たちのダイビングスクールは、初心者から経験者まで安心して楽しめるプログラムを提供しています。<br>少人数制で丁寧な指導を行い、安全で快適な海の世界へご案内。<br>ライセンス取得や体験ダイビング、ファンダイビングまで、あなたの海の冒険を全力でサポートします！
           </p>
         </div>
       </div>
     </div>
   </section>
-  
+
   <!-- ギャラリーセクション -->
-  <?php 
-  $gallery = SCF::get('gallery'); 
+  <?php
+  $gallery = SCF::get('gallery');
   $has_valid_image = false;
 
   if (!empty($gallery)) {
-      foreach ($gallery as $item) {
-          $image_id = $item['gallery-image'];
-          $image_url = wp_get_attachment_url($image_id);
-          if ($image_url) {
-              $has_valid_image = true;
-              break;
-          }
+    foreach ($gallery as $item) {
+      $image_id = $item['gallery-image'];
+      $image_url = wp_get_attachment_url($image_id);
+      if ($image_url) {
+        $has_valid_image = true;
+        break;
       }
+    }
   }
   ?>
 
   <?php if ($has_valid_image): ?>
-  <section class="about__gallery gallery about-gallery">
-    <div class="inner">
-      <div class="gallery__title section-title">
-        <p class="section-title__en section-title__en--gallery">gallery</p>
-        <h2 class="section-title__ja">フォト</h2>
-      </div>
-      <div class="gallery__images">
-        <?php foreach ($gallery as $index => $item): 
+    <section class="about__gallery gallery about-gallery">
+      <div class="inner">
+        <div class="gallery__title section-title">
+          <p class="section-title__en section-title__en--gallery">gallery</p>
+          <h2 class="section-title__ja">フォト</h2>
+        </div>
+        <div class="gallery__images">
+          <?php foreach ($gallery as $index => $item):
             $image_id = $item['gallery-image'];
             $image_url = wp_get_attachment_url($image_id);
 
@@ -66,16 +65,17 @@
               <div class="gallery__image">
                 <img src="<?php echo esc_url($image_url); ?>" alt="ギャラリーの画像">
               </div>
-        <?php endif; endforeach; ?>
-        
-        <!-- モーダル用のHTML -->
-        <div id="modal" class="modal">
-          <div id="modalimage" class="modal__content"></div>
+          <?php endif;
+          endforeach; ?>
+
+          <!-- モーダル用のHTML -->
+          <div id="modal" class="modal">
+            <div id="modalimage" class="modal__content"></div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-<?php endif; ?>
+    </section>
+  <?php endif; ?>
 
 
 </main>

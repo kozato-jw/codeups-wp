@@ -63,7 +63,6 @@ function my_theme_enqueue_styles_and_scripts()
     filemtime(get_theme_file_path('/assets/js/script.js')),
     true
   );
-
 }
 add_action('wp_enqueue_scripts', 'my_theme_enqueue_styles_and_scripts');
 
@@ -223,44 +222,80 @@ function get_post_views($post_id)  // 閲覧数を取得する関数
 
 
 /* ===================================================== */
-//通常投稿の名称変更
-function Change_menulabel()
+// 料金一覧の金額のフィールドは数値の入力のみ許可（フィールド増減にも対応）
+// 管理画面での入力時にinputのtypeをtextからnumberに変更する
+function scf_number_field_admin_script()
 {
-  global $menu;
-  global $submenu;
-  $name = 'ブログ';
-  $menu[5][0] = $name;
-  $submenu['edit.php'][5][0] = $name . '一覧';
-  $submenu['edit.php'][10][0] = '新しい' . $name;
+  $screen = get_current_screen();
+
+  if ($screen && $screen->taxonomy === 'price_category') {
+?>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        function applyNumberField() {
+          document.querySelectorAll('input[name^="smart-custom-fields[course_price]"]').forEach(function(input) {
+            input.setAttribute('type', 'number'); // 数字のみ入力可能にする
+            input.setAttribute('oninput', "this.value = this.value.replace(/[^0-9]/g, '');"); // 数字以外を削除
+          });
+        }
+
+        applyNumberField();
+
+        // 追加されたフィールドにも適用
+        const observer = new MutationObserver(function(mutationsList) {
+          mutationsList.forEach(function(mutation) {
+            mutation.addedNodes.forEach(function(node) {
+              if (node.nodeType === 1) {
+                if (node.matches('input[name^="smart-custom-fields[course_price]"]') || node.querySelector('input[name^="smart-custom-fields[course_price]"]')) {
+                  applyNumberField();
+                }
+              }
+            });
+          });
+        });
+
+        // 繰り返しフィールドのコンテナを監視
+        const scfContainer = document.querySelector('.smart-cf-field');
+        if (scfContainer) {
+          observer.observe(scfContainer, {
+            childList: true,
+            subtree: true
+          });
+        }
+      });
+    </script>
+  <?php
+  }
 }
-function Change_objectlabel()
-{
-  global $wp_post_types;
-  $name = 'ブログ';
-  $labels = &$wp_post_types['post']->labels;
-  $labels->name = $name;
-  $labels->singular_name = $name;
-  $labels->add_new = _x('追加', $name);
-  $labels->add_new_item = $name . 'の新規追加';
-  $labels->edit_item = $name . 'の編集';
-  $labels->new_item = '新規' . $name;
-  $labels->view_item = $name . 'を表示';
-  $labels->search_items = $name . 'を検索';
-  $labels->not_found = $name . 'が見つかりませんでした';
-  $labels->not_found_in_trash = 'ゴミ箱に' . $name . 'は見つかりませんでした';
-}
-add_action('init', 'Change_objectlabel');
-add_action('admin_menu', 'Change_menulabel');
+add_action('admin_footer', 'scf_number_field_admin_script');
 
 
 
 /* ===================================================== */
-// Contact Form 7で自動挿入されるPタグ、brタグを削除
-add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
-function wpcf7_autop_return_false()
+// ブロックエディタ内で使用可能なブロックのみ表示（ブログ）
+function my_allowed_block_types($allowed_blocks, $editor_context)
 {
-  return false;
+  return [
+    'core/paragraph',      // 段落ブロック
+    'core/heading',        // 見出しブロック
+    'core/image',          // 画像ブロック
+    'core/list',           // リストブロック
+  ];
 }
+add_filter('allowed_block_types_all', 'my_allowed_block_types', 10, 2);
+
+
+
+/* ===================================================== */
+// カテゴリーページで親カテゴリーを非表示（CSSも追加する）
+function add_edit_tags_page_styles()
+{
+  wp_enqueue_style(
+    'edit_tags_page_styles', // ハンドル名
+    get_template_directory_uri() . '/assets/css/style.css' // CSSファイルのパス
+  );
+}
+add_action('admin_print_styles-edit-tags.php', 'add_edit_tags_page_styles');
 
 
 
@@ -293,6 +328,20 @@ function add_custom_taxonomy_to_cf7($tag, $unused)
 }
 
 
+/* ===================================================== 
+  --------------- ContactForm7関連 --------------------
+ ===================================================== */
+
+/* ===================================================== */
+// Contact Form 7で自動挿入されるPタグ、brタグを削除
+add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
+function wpcf7_autop_return_false()
+{
+  return false;
+}
+
+
+
 /* ===================================================== */
 // Contact Form7の送信ボタンをクリックした後の遷移先設定
 add_action('wp_footer', 'add_origin_thanks_page');
@@ -319,7 +368,7 @@ function add_origin_thanks_page()
 add_action('wp_footer', 'custom_disable_default_cf7_messages');
 function custom_disable_default_cf7_messages()
 {
-?>
+  ?>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       document.addEventListener('wpcf7invalid', function() {
@@ -391,6 +440,10 @@ function custom_error_message_script()
 
 
 
+/* ===================================================== 
+  --------------- 管理画面のカスタム --------------------
+ ===================================================== */
+
 /* ===================================================== */
 // 管理画面 メニューの並び替え
 function my_custom_menu_order($menu_order)
@@ -415,3 +468,318 @@ function my_custom_menu_order($menu_order)
 }
 add_filter('custom_menu_order', 'my_custom_menu_order');
 add_filter('menu_order', 'my_custom_menu_order');
+
+
+
+/* ===================================================== */
+//通常投稿の名称変更（初期値”投稿”）
+function Change_menulabel()
+{
+  global $menu;
+  global $submenu;
+  $name = 'ブログ';
+  $menu[5][0] = $name;
+  $submenu['edit.php'][5][0] = $name . '一覧';
+  $submenu['edit.php'][10][0] = '新しい' . $name;
+}
+function Change_objectlabel()
+{
+  global $wp_post_types;
+  $name = 'ブログ';
+  $labels = &$wp_post_types['post']->labels;
+  $labels->name = $name;
+  $labels->singular_name = $name;
+  $labels->add_new = _x('追加', $name);
+  $labels->add_new_item = $name . 'の新規追加';
+  $labels->edit_item = $name . 'の編集';
+  $labels->new_item = '新規' . $name;
+  $labels->view_item = $name . 'を表示';
+  $labels->search_items = $name . 'を検索';
+  $labels->not_found = $name . 'が見つかりませんでした';
+  $labels->not_found_in_trash = 'ゴミ箱に' . $name . 'は見つかりませんでした';
+}
+add_action('init', 'Change_objectlabel');
+add_action('admin_menu', 'Change_menulabel');
+
+
+
+/* ===================================================== */
+// 管理画面ログイン時のロゴ変更
+function custom_login_logo()
+{
+?>
+  <style type="text/css">
+    #login h1 a {
+      display: block;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-image: url(<?php echo get_theme_file_uri(); ?>/assets/images/common/logo-blue.svg);
+      width: 200px;
+      height: 73px;
+    }
+  </style>
+<?php
+}
+add_action('login_head', 'custom_login_logo');
+
+
+
+/* ===================================================== */
+// 管理画面ログイン時のロゴからの遷移先変更
+function custom_login_logo_url()
+{
+  return get_bloginfo('url');
+}
+add_filter('login_headerurl', 'custom_login_logo_url');
+
+
+
+/* ===================================================== */
+// 管理画面ヘッダーの不要項目削除
+function remove_admin_bar_items($wp_admin_bar)
+{
+  $wp_admin_bar->remove_menu('wp-logo');
+  $wp_admin_bar->remove_menu('new-content');
+  $wp_admin_bar->remove_menu('comments');
+  $wp_admin_bar->remove_menu('updates');
+}
+add_action('admin_bar_menu', 'remove_admin_bar_items', 999);
+
+
+
+/* ===================================================== */
+// 管理画面サイドバーの項目名称変更
+function change_menu_label()
+{
+  global $menu, $submenu;
+  $menu[10][0] = '画像・ファイル';
+  $submenu['upload.php'][5][0] = '画像・ファイル一覧';
+  $submenu['upload.php'][10][0] = '画像・ファイルを追加';
+}
+add_action('admin_menu', 'change_menu_label');
+
+
+
+/* ===================================================== */
+// 管理画面ダッシュボード内の不要ウィジェット削除
+function remove_dashboard_widget()
+{
+  remove_meta_box('dashboard_right_now', 'dashboard', 'normal'); // 概要
+  remove_meta_box('dashboard_activity', 'dashboard', 'normal'); // アクティビティ
+  remove_meta_box('dashboard_quick_press', 'dashboard', 'side'); // クイックドラフト
+  remove_meta_box('dashboard_primary', 'dashboard', 'side'); // WordPress イベントとニュース
+  remove_action('welcome_panel', 'wp_welcome_panel'); // ウェルカムパネル
+}
+add_action('wp_dashboard_setup', 'remove_dashboard_widget');
+
+
+
+/* ===================================================== */
+// 管理画面ダッシュボード内に独自のウィジェット追加
+
+// 【ブログ】ウィジェット
+function add_dashboard_widgets()
+{
+  wp_add_dashboard_widget(
+    'quick_action_dashboard_widget', // ウィジェットのスラッグ名
+    'ブログの管理', // ウィジェットに表示するタイトル
+    'dashboard_widget_function' // 実行する関数
+  );
+}
+add_action('wp_dashboard_setup', 'add_dashboard_widgets');
+
+function dashboard_widget_function()
+{
+?>
+  <ul class="quick-action">
+    <?php if (current_user_can('administrator')) : ?>
+      <li>
+        <a href="<?php echo admin_url() . 'post-new.php'; ?>" class="quick-action-button">
+          <span class="dashicons-before dashicons-arrow-right"></span>
+          ブログを新しく投稿する
+        </a>
+      </li>
+      <li>
+        <a href="<?php echo admin_url() . 'edit.php'; ?>" class="quick-action-button">
+          <span class="dashicons-before  dashicons-arrow-right"></span>
+          ブログの一覧を見る
+        </a>
+      </li>
+    <?php endif; ?>
+  </ul>
+<?php
+}
+
+// 【キャンペーン】ウィジェット
+function add_dashboard_widgets_2()
+{
+  wp_add_dashboard_widget(
+    'quick_action_dashboard_widget_2', // ウィジェットのスラッグ名
+    'キャンペーン情報の管理', // ウィジェットに表示するタイトル
+    'dashboard_widget_function_2' // 実行する関数
+  );
+}
+add_action('wp_dashboard_setup', 'add_dashboard_widgets_2');
+
+function dashboard_widget_function_2()
+{
+?>
+  <ul class="quick-action">
+    <?php if (current_user_can('administrator')) : ?>
+      <li>
+        <a href="<?php echo admin_url() . 'post-new.php?post_type=campaign'; ?>" class="quick-action-button">
+          <span class="dashicons-before dashicons-arrow-right"></span>
+          キャンペーン情報を新しく投稿する
+        </a>
+      </li>
+      <li>
+        <a href="<?php echo admin_url() . 'edit.php?post_type=campaign'; ?>" class="quick-action-button">
+          <span class="dashicons-before  dashicons-arrow-right"></span>
+          キャンペーン情報の一覧を見る
+        </a>
+      </li>
+      <li>
+        <a href="<?php echo admin_url() . 'edit-tags.php?taxonomy=campaign_category&post_type=campaign'; ?>" class="quick-action-button">
+          <span class="dashicons-before dashicons-arrow-right"></span>
+          カテゴリーを追加する
+        </a>
+      </li>
+    <?php endif; ?>
+  </ul>
+<?php
+}
+
+// 【お客様の声】ウィジェット
+function add_dashboard_widgets_3()
+{
+  wp_add_dashboard_widget(
+    'quick_action_dashboard_widget_3', // ウィジェットのスラッグ名
+    'お客様の声の管理', // ウィジェットに表示するタイトル
+    'dashboard_widget_function_3' // 実行する関数
+  );
+}
+add_action('wp_dashboard_setup', 'add_dashboard_widgets_3');
+
+function dashboard_widget_function_3()
+{
+?>
+  <ul class="quick-action">
+    <?php if (current_user_can('administrator')) : ?>
+      <li>
+        <a href="<?php echo admin_url() . 'post-new.php?post_type=voice'; ?>" class="quick-action-button">
+          <span class="dashicons-before dashicons-arrow-right"></span>
+          お客様の声を新しく投稿する
+        </a>
+      </li>
+      <li>
+        <a href="<?php echo admin_url() . 'edit.php?post_type=voice'; ?>" class="quick-action-button">
+          <span class="dashicons-before  dashicons-arrow-right"></span>
+          お客様の声の一覧を見る
+        </a>
+      </li>
+      <li>
+        <a href="<?php echo admin_url() . 'edit-tags.php?taxonomy=voice_category&post_type=voice'; ?>" class="quick-action-button">
+          <span class="dashicons-before dashicons-arrow-right"></span>
+          カテゴリーを追加する
+        </a>
+      </li>
+    <?php endif; ?>
+  </ul>
+<?php
+}
+
+// 【固定ページ】ウィジェット
+function add_dashboard_widgets_4()
+{
+  wp_add_dashboard_widget(
+    'quick_action_dashboard_widget_4', // ウィジェットのスラッグ名
+    '固定ページの管理', // ウィジェットに表示するタイトル
+    'dashboard_widget_function_4' // 実行する関数
+  );
+}
+add_action('wp_dashboard_setup', 'add_dashboard_widgets_4');
+
+function dashboard_widget_function_4()
+{
+?>
+  <ul class="quick-action">
+    <?php if (current_user_can('administrator')) : ?>
+      <li>
+        <a href="<?php echo admin_url() . 'post.php?post=9&action=edit'; ?>" class="quick-action-button">
+          <span class="dashicons-before dashicons-arrow-right"></span>
+          【私たちについて】のギャラリー画像を追加・編集する
+        </a>
+      </li>
+      <li>
+        <a href="<?php echo admin_url() . 'edit-tags.php?taxonomy=price_category&post_type=page'; ?>" class="quick-action-button">
+          <span class="dashicons-before  dashicons-arrow-right"></span>
+          【料金一覧】の金額とカテゴリーを追加・編集する
+        </a>
+      </li>
+      <li>
+        <a href="<?php echo admin_url() . 'post.php?post=19&action=edit'; ?>" class="quick-action-button">
+          <span class="dashicons-before  dashicons-arrow-right"></span>
+          【よくある質問】を追加・編集する
+        </a>
+      </li>
+      <li>
+        <a href="<?php echo admin_url() . 'post.php?post=23&action=edit'; ?>" class="quick-action-button">
+          <span class="dashicons-before dashicons-arrow-right"></span>
+          【プライバシーポリシー】を編集する
+        </a>
+      </li>
+      <li>
+        <a href="<?php echo admin_url() . 'post.php?post=25&action=edit'; ?>" class="quick-action-button">
+          <span class="dashicons-before dashicons-arrow-right"></span>
+          【利用規約】を編集する
+        </a>
+      </li>
+
+    <?php endif; ?>
+  </ul>
+<?php
+}
+
+// 【画像】ウィジェット
+function add_dashboard_widgets_5()
+{
+  wp_add_dashboard_widget(
+    'quick_action_dashboard_widget_5', // ウィジェットのスラッグ名
+    'その他の管理', // ウィジェットに表示するタイトル
+    'dashboard_widget_function_5' // 実行する関数
+  );
+}
+add_action('wp_dashboard_setup', 'add_dashboard_widgets_5');
+
+function dashboard_widget_function_5()
+{
+?>
+  <ul class="quick-action">
+    <?php if (current_user_can('administrator')) : ?>
+      <li>
+        <a href="<?php echo admin_url() . 'media-new.php'; ?>" class="quick-action-button">
+          <span class="dashicons-before dashicons-arrow-right"></span>
+          新しい画像を登録する
+        </a>
+      </li>
+      <li>
+        <a href="<?php echo admin_url() . 'upload.php'; ?>" class="quick-action-button">
+          <span class="dashicons-before dashicons-arrow-right"></span>
+          画像の一覧を見る
+        </a>
+      </li>
+
+    <?php endif; ?>
+  </ul>
+<?php
+}
+
+
+
+/* ===================================================== */
+// 管理画面のcss変更(admin-style.css)
+function admin_custom_css()
+{
+  echo '<link rel="stylesheet" type="text/css" href="' . get_bloginfo("template_directory") . '/assets/css/admin-style.css">';
+}
+add_action('admin_head', 'admin_custom_css');

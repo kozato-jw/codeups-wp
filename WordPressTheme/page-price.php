@@ -14,6 +14,7 @@
   <section class="price-sub price-sub-content icon-fish icon-fish--price">
     <div class="inner-sub">
       <div class="price-sub__items price-lists">
+
         <!-- 以下 カスタムタクソノミーとカスタムフィールドを紐づけてループ -->
         <div class="price-lists">
           <?php
@@ -56,7 +57,7 @@
                             <?php echo wp_kses_post($course['course_name']); ?>
                           </th>
                           <td class="price-list__price">
-                            &yen;<?php echo esc_html($course['course_price']); ?>
+                            &yen;<?php echo number_format($course['course_price']); ?>
                           </td>
                         <?php endif; ?>
                       </tr>

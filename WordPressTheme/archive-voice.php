@@ -91,7 +91,7 @@
               <?php if ($voicetext): ?>
                 <p class="voice-card__text">
                   <!-- 文字数制限の関数を適用（custom_excerpt） -->
-                  <?php echo custom_excerpt($voicetext); ?>
+                  <?php echo nl2br(custom_excerpt($voicetext)); ?>
                 </p>
               <?php endif; ?>
             </article>

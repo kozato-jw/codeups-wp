@@ -87,10 +87,10 @@
                 ?>
                 <p class="campaign-card__price campaign-card__price--sub">
                   <?php if ($regular_price): ?>
-                    <span class="campaign-card__price-disabled">&yen;<?php echo esc_html($regular_price); ?></span>
+                    <span class="campaign-card__price-disabled">&yen;<?php echo number_format($regular_price); ?></span>
                   <?php endif; ?>
                   <?php if ($special_price): ?>
-                    <span class="campaign-card__price-current">&yen;<?php echo esc_html($special_price); ?></span>
+                    <span class="campaign-card__price-current">&yen;<?php echo number_format($special_price); ?></span>
                   <?php endif; ?>
                 </p>
                 <?php if ($campaign_details): ?>
