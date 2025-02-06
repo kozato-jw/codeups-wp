@@ -36,7 +36,12 @@ global  $campaign, $blog, $voice;
                 </div>
                 <div class="blog-card__meta">
                   <time class="blog-card__date blog-card__date--sidebar" datetime="<?php the_time('c'); ?>"><?php the_time('Y.m/d'); ?></time>
-                  <h3 class="blog-card__title blog-card__title--sidebar"><?php the_title(); ?></h3>
+                  <h3 class="blog-card__title blog-card__title--sidebar">
+                    <?php
+                    $title = get_the_title();
+                    echo (mb_strlen($title) > 12) ? mb_substr($title, 0, 12) . '...' : $title;
+                    ?>
+                  </h3>
                 </div>
               </a>
             </article>
@@ -140,10 +145,10 @@ global  $campaign, $blog, $voice;
                 ?>
                 <p class="campaign-card__price campaign-card__price--sidebar">
                   <?php if ($regular_price): ?>
-                    <span class="campaign-card__price-disabled campaign-card__price-disabled--sidebar">&yen;<?php echo esc_html($regular_price); ?></span>
+                    <span class="campaign-card__price-disabled campaign-card__price-disabled--sidebar">&yen;<?php echo number_format($regular_price); ?></span>
                   <?php endif; ?>
                   <?php if ($special_price): ?>
-                    <span class="campaign-card__price-current campaign-card__price-current--sidebar">&yen;<?php echo esc_html($special_price); ?></span>
+                    <span class="campaign-card__price-current campaign-card__price-current--sidebar">&yen;<?php echo number_format($special_price); ?></span>
                   <?php endif; ?>
                 </p>
               </div>

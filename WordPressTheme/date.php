@@ -33,7 +33,7 @@
                     <time class="blog-card__date" datetime="<?php the_time('c'); ?>"><?php the_time('Y.m/d'); ?></time>
                     <h2 class="blog-card__title blog-card__title--sub"><?php the_title(); ?></h2>
                   </div>
-                  <p class="blog-card__text"><?php the_excerpt(); ?></p>
+                  <div class="blog-card__text"><?php the_excerpt(); ?></div>
                 </a>
               </article>
             <?php endwhile;

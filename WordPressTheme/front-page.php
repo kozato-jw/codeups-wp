@@ -105,10 +105,10 @@
                     ?>
                     <p class="campaign-card__price">
                       <?php if ($regular_price): ?>
-                        <span class="campaign-card__price-disabled">&yen;<?php echo esc_html($regular_price); ?></span>
+                        <span class="campaign-card__price-disabled">&yen;<?php echo number_format($regular_price); ?></span>
                       <?php endif; ?>
                       <?php if ($special_price): ?>
-                        <span class="campaign-card__price-current">&yen;<?php echo esc_html($special_price); ?></span>
+                        <span class="campaign-card__price-current">&yen;<?php echo number_format($special_price); ?></span>
                       <?php endif; ?>
                     </p>
                   </div>
@@ -146,8 +146,8 @@
           <span class="about__initial">o</span>cean
         </h3>
         <div class="about__text-wrapper">
-          <p class="about__text">ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。
-            <br>ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキスト
+          <p class="about__text">
+            私たちのダイビングスクールは、初心者から経験者まで安心して楽しめるプログラムを提供しています。<br>少人数制で丁寧な指導を行い、安全で快適な海の世界へご案内。<br>ライセンス取得や体験ダイビング、ファンダイビングまで、あなたの海の冒険を全力でサポートします！
           </p>
           <div class="about__btn">
             <a class="btn" href="<?php echo $aboutus; ?>">
@@ -218,7 +218,7 @@
                   <time class="blog-card__date" datetime="<?php the_time('c'); ?>"><?php the_time('Y.m/d'); ?></time>
                   <h3 class="blog-card__title"><?php the_title(); ?></h3>
                 </div>
-                <p class="blog-card__text"><?php the_excerpt(); ?></p>
+                <div class="blog-card__text"><?php the_excerpt(); ?></div>
               </a>
             </article>
         <?php endwhile;
@@ -361,7 +361,7 @@
                       <!-- コース名とプライスを両方取得できた場合のみ表示 -->
                       <?php if (!empty($course['course_name']) && !empty($course['course_price'])): ?>
                         <dt><?php echo wp_kses_post($course['course_name']); ?></dt>
-                        <dd>&yen;<?php echo esc_html($course['course_price']); ?></dd>
+                        <dd>&yen;<?php echo number_format($course['course_price']); ?></dd>
                       <?php endif; ?>
                     </dl>
                   <?php endforeach; ?>
