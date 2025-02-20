@@ -287,6 +287,41 @@ add_filter('allowed_block_types_all', 'my_allowed_block_types', 10, 2);
 
 
 /* ===================================================== */
+// カスタム投稿タイプのエディターを非表示
+add_action('init', 'my_remove_post_support');
+function my_remove_post_support()
+{
+  remove_post_type_support('campaign', 'editor');
+  remove_post_type_support('voice', 'editor');
+}
+
+// 固定ページのエディターを非表示
+add_filter('use_block_editor_for_post', function ($use_block_editor, $post) {
+  if ($post->post_type === 'page') {
+    if (in_array($post->post_name, ['faq', 'about-us', 'price', 'top', 'contact', 'thanks', 'blog', 'information', 'sitemap', '404-2'])) { 
+      remove_post_type_support('page', 'editor');
+      return false;
+    }
+  }
+  return $use_block_editor;
+}, 10, 2);
+
+// エディター以外に残るパーツを非表示
+add_action('admin_menu', 'my_remove_meta_boxes');
+function my_remove_meta_boxes()
+{
+  remove_meta_box('slugdiv', 'campaign', 'normal');      // カスタム投稿スラッグ
+  remove_meta_box('slugdiv', 'voice', 'normal');         // カスタム投稿スラッグ
+  remove_meta_box('commentstatusdiv', 'page', 'normal'); // 固定ページディスカッション
+  remove_meta_box('authordiv', 'page', 'normal');        // 固定ページ作成者
+  remove_meta_box('revisionsdiv', 'page', 'normal');     // 固定ページリビジョン
+  remove_meta_box('slugdiv', 'page', 'normal');          // 固定ページスラッグ
+  remove_meta_box('commentsdiv', 'page', 'normal');      // 固定ページコメント
+}
+
+
+
+/* ===================================================== */
 // カテゴリーページで親カテゴリーを非表示（CSSも追加する）
 function add_edit_tags_page_styles()
 {
@@ -472,7 +507,7 @@ add_filter('menu_order', 'my_custom_menu_order');
 
 
 /* ===================================================== */
-//通常投稿の名称変更（初期値”投稿”）
+//管理画面 通常投稿の名称変更（初期値”投稿”）
 function Change_menulabel()
 {
   global $menu;
@@ -504,7 +539,7 @@ add_action('admin_menu', 'Change_menulabel');
 
 
 /* ===================================================== */
-// 管理画面ログイン時のロゴ変更
+// 管理画面ログインページのロゴ変更
 function custom_login_logo()
 {
 ?>
@@ -512,10 +547,10 @@ function custom_login_logo()
     #login h1 a {
       display: block;
       background-repeat: no-repeat;
-      background-size: cover;
-      background-image: url(<?php echo get_theme_file_uri(); ?>/assets/images/common/logo-blue.svg);
-      width: 200px;
-      height: 73px;
+      background-size: contain;
+      background-image: url(<?php echo get_theme_file_uri(); ?>/assets/images/common/logo-blue.png);
+      width: 250px;
+      height: auto;
     }
   </style>
 <?php
@@ -525,12 +560,21 @@ add_action('login_head', 'custom_login_logo');
 
 
 /* ===================================================== */
-// 管理画面ログイン時のロゴからの遷移先変更
+// 管理画面ログインページのロゴからの遷移先変更
 function custom_login_logo_url()
 {
   return get_bloginfo('url');
 }
 add_filter('login_headerurl', 'custom_login_logo_url');
+
+
+/* ===================================================== */
+// 管理画面ログインページの下部にある言語選択を非表示
+function remove_login_language_switcher()
+{
+  echo '<style>.language-switcher { display: none !important; }</style>';
+}
+add_action('login_init', 'remove_login_language_switcher');
 
 
 
@@ -745,7 +789,7 @@ function add_dashboard_widgets_5()
 {
   wp_add_dashboard_widget(
     'quick_action_dashboard_widget_5', // ウィジェットのスラッグ名
-    'その他の管理', // ウィジェットに表示するタイトル
+    '画像の管理', // ウィジェットに表示するタイトル
     'dashboard_widget_function_5' // 実行する関数
   );
 }
@@ -759,7 +803,7 @@ function dashboard_widget_function_5()
       <li>
         <a href="<?php echo admin_url() . 'media-new.php'; ?>" class="quick-action-button">
           <span class="dashicons-before dashicons-arrow-right"></span>
-          新しい画像を登録する
+          画像を新しく登録する
         </a>
       </li>
       <li>
@@ -777,9 +821,20 @@ function dashboard_widget_function_5()
 
 
 /* ===================================================== */
-// 管理画面のcss変更(admin-style.css)
-function admin_custom_css()
+// 管理画面css変更
+function my_custom_admin_css()
 {
-  echo '<link rel="stylesheet" type="text/css" href="' . get_bloginfo("template_directory") . '/assets/css/admin-style.css">';
+  echo '<style>
+    #wpadminbar,
+    #adminmenu,
+    #adminmenuback,
+    #adminmenuwrap {
+      background: #408F95;
+    }
+    .postbox-header{ 
+      background: #ddf0f1;
+    }
+    </style>';
 }
-add_action('admin_head', 'admin_custom_css');
+add_action('admin_head', 'my_custom_admin_css');
+

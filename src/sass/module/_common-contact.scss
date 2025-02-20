@@ -53,10 +53,12 @@
 }
 
 .common-contact__logo img {
-  width: 50%;
+  width: 45%;
+  margin-bottom: rem(10);
   display: inline-block;
   @include mq(md){
-    width: rem(200);
+    width: rem(280);
+    margin-bottom: rem(20);
   }
 }
 
