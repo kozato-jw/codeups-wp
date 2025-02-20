@@ -925,7 +925,8 @@ a {
 
 .common-contact__logo img {
 	display: inline-block;
-	width: 50%;
+	margin-bottom: 0.625rem;
+	width: 45%;
 }
 
 .common-contact__logo::after {
@@ -1676,7 +1677,7 @@ textarea {
 	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2509803922));
 	position: relative;
 	transition: 0.3s;
-	width: 6.375rem;
+	width: 9.375rem;
 	z-index: 9999;
 }
 
@@ -3213,7 +3214,8 @@ html {
 }
 
 .common-contact__logo img {
-	width: 12.5rem;
+	margin-bottom: 1.25rem;
+	width: 17.5rem;
 }
 
 .common-contact__logo::after {
@@ -3465,7 +3467,7 @@ select {
 }
 
 .header__logo {
-	width: 8.3125rem;
+	width: 12.5rem;
 }
 
 .icon-fish::before,

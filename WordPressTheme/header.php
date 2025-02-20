@@ -20,13 +20,13 @@ global $home, $campaign, $aboutus, $information, $blog, $voice, $price, $faq, $c
       <?php if (is_front_page()): ?>
         <h1 class="header__logo">
           <a href="<?php echo esc_url(home_url('/')); ?>">
-            <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/logo-white.png" alt="コードアップス">
+            <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/logo-white.png" alt="ブルーホライゾン">
           </a>
         </h1>
       <?php else: ?>
         <div class="header__logo">
           <a href="<?php echo esc_url(home_url('/')); ?>">
-            <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/logo-white.png" alt="コードアップス">
+            <img src="<?php echo get_theme_file_uri(); ?>/assets/images/common/logo-white.png" alt="ブルーホライゾン">
           </a>
         </div>
       <?php endif; ?>
@@ -126,7 +126,7 @@ global $home, $campaign, $aboutus, $information, $blog, $voice, $price, $faq, $c
           <li class="gnav__item gnav__item--main gnav__item--mb40">
             <a href="<?php echo $voice; ?>">お客様の声 </a>
           </li>
-          
+
           <!-- 以下 プライスのカスタムタクソノミーを反映 -->
           <?php
           $price_page_id = 17;
